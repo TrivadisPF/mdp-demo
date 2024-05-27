@@ -354,6 +354,30 @@ services:
         /maven-download.sh central com.amazonaws:aws-java-sdk-bundle:1.11.375,org.apache.hadoop:hadoop-aws:3.2.1,com.google.guava:guava:14.0.1 /usr/local/spark/jars
         start-notebook.sh
     restart: unless-stopped
+  #  ================================== PostgreSQL ========================================== #
+  postgresql:
+    image: postgres:16
+    container_name: postgresql
+    hostname: postgresql
+    labels:
+      com.platys.name: postgresql
+      com.platys.description: Open-Source object-relational database system
+    ports:
+      - 5432:5432
+    environment:
+      - POSTGRES_PASSWORD=abc123!
+      - POSTGRES_USER=postgres
+      - POSTGRES_DB=postgres
+      - POSTGRES_MULTIPLE_DATABASES=demodb,starburst
+      - POSTGRES_MULTIPLE_USERS=demo,starburst
+      - POSTGRES_MULTIPLE_PASSWORDS=abc123!,abc123!
+      - POSTGRES_MULTIPLE_ADDL_ROLES=
+      - PGDATA=/var/lib/postgresql/data/pgdata
+      - DB_SCHEMA=demo
+    volumes:
+      - ./data-transfer:/data-transfer
+      - ./init/postgresql:/docker-entrypoint-initdb.d/
+    restart: unless-stopped
   #  ================================== Trino ========================================== #
   trino-1:
     image: starburstdata/starburst-enterprise:435-e.4
@@ -380,13 +404,17 @@ services:
       HIVE_VIEWS_ENABLED: 'false'
       HIVE_RUN_AS_INVOKER: 'false'
       HIVE_LEGACY_TRANSLATION: 'false'
+      POSTGRESQL_DATABASE: postgres
+      POSTGRESQL_USER: postgres
+      POSTGRESQL_PASSWORD: abc123!
       EVENT_LISTENER_CONFIG_FILES: ''
     volumes:
       - ./data-transfer:/data-transfer
       - ./conf/starburstdata/single/config.properties:/etc/starburst/config.properties
       - ./conf/starburstdata/single/node.properties:/etc/starburst/node.properties
       - ./conf/starburstdata/catalog/minio.properties:/etc/starburst/catalog/minio.properties
-      - ./licenses/starburstdata/starburstdata.license:/etc/starburstdata.license
+      - ./conf/starburstdata/catalog/postgresql.properties:/etc/starburst/catalog/postgresql.properties
+      - ./licenses/starburstdata/starburstdata.license:/etc/starburst/starburstdata.license
       - ./custom-conf/starburstdata/security:/etc/starburst/security
     restart: unless-stopped
   trino-cli:
