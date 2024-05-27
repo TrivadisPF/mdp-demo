@@ -386,7 +386,7 @@ services:
       - ./conf/starburstdata/single/config.properties:/etc/starburst/config.properties
       - ./conf/starburstdata/single/node.properties:/etc/starburst/node.properties
       - ./conf/starburstdata/catalog/minio.properties:/etc/starburst/catalog/minio.properties
-      - ./licenses/starburstdata/starburstdata.license:/etc/starburst/starburstdata.license
+      - ./licenses/starburstdata/starburstdata.license:/etc/starburstdata.license
       - ./custom-conf/starburstdata/security:/etc/starburst/security
     restart: unless-stopped
   trino-cli:
