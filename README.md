@@ -19,3 +19,9 @@ docker compose up -d
 ## Using Starburst
 
 Download Starburst ODBC Driver from here: <https://docs.starburst.io/clients/odbc.html>
+
+
+
+
+Hospital Data
+* https://www.kaggle.com/datasets/ashishsahani/hospital-admissions-data?resource=download
