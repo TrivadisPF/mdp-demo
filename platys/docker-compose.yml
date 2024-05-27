@@ -517,6 +517,7 @@ services:
       - 28312:3000
     volumes:
       - ./data-transfer:/data-transfer
+      - ./conf/markdown-madness/markdown-madness.yml:/docs/.madness.yml
     command: server
     restart: unless-stopped
   #  ================================== markdown-viewer ========================================== #
