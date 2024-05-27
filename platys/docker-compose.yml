@@ -300,6 +300,65 @@ services:
         eval "echo \"$$(cat /tmp/s3-credentials.properties.templ)\"" >> s3-credentials.properties
         ../scripts/start.sh
     restart: unless-stopped
+  #  ================================== Zeppelin ========================================== #
+  zeppelin:
+    image: trivadis/apache-zeppelin:0.10.1-spark3.1.3-hadoop3.2
+    container_name: zeppelin
+    hostname: zeppelin
+    labels:
+      com.platys.name: zeppelin
+      com.platys.description: Data Science Notebook
+      com.platys.webui.title: Apache Zeppelin UI
+      com.platys.webui.url: http://dataplatform:28080
+    ports:
+      - 28080:8080
+      - 6060:6060
+      - 5050:5050
+      - 4050-4054:4050-4054
+    env_file:
+      - ./conf/hadoop.env
+    environment:
+      CORE_CONF_fs_s3a_endpoint: http://minio-1:9000
+      CORE_CONF_fs_s3a_path_style_access: 'true'
+      HIVE_SITE_CONF_fs_s3a_endpoint: http://minio-1:9000
+      HIVE_SITE_CONF_fs_s3a_access_key: minio
+      HIVE_SITE_CONF_fs_s3a_secret_key: abc123abc123!
+      HIVE_SITE_CONF_fs_s3a_path_style_access: 'true'
+      HIVE_SITE_CONF_fs_s3a_impl: org.apache.hadoop.fs.s3a.S3AFileSystem
+      SPARK_DEFAULTS_CONF_spark_hadoop_fs_s3a_impl: org.apache.hadoop.fs.s3a.S3AFileSystem
+      SPARK_DEFAULTS_CONF_spark_hadoop_fs_s3a_endpoint: http://minio-1:9000
+      SPARK_DEFAULTS_CONF_spark_hadoop_fs_s3a_path_style_access: 'true'
+      SPARK_HADOOP_FS_S3A_ACCESS_KEY: minio
+      SPARK_HADOOP_FS_S3A_SECRET_KEY: abc123abc123!
+      # for awscli & s3cmd
+      AWS_ACCESS_KEY_ID: minio
+      AWS_SECRET_ACCESS_KEY: ${PLATYS_AWS_SECRET_ACCESS_KEY:-abc123abc123!}
+      AWS_ENDPOINT: http://minio-1:9000
+      AWS_DEFAULT_REGION: us-east-1
+      ZEPPELIN_SPARK_MASTER: local[*]
+      SPARK_HOME: /opt/spark
+      CORE_CONF_fs_defaultFS: s3a://admin-bucket
+      SPARK_DEFAULTS_CONF_spark_sql_warehouse_dir:
+      ZEPPELIN_ADDR: 0.0.0.0
+      ZEPPELIN_PORT: '8080'
+      ZEPPELIN_MEM: -Xms1024m -Xmx1024m -XX:MaxMetaspaceSize=512m
+      ZEPPELIN_INTERPRETER_CONNECT_TIMEOUT: 120000
+      ZEPPELIN_INTERPRETER_DEP_MVNREPO: https://repo.maven.apache.org/maven2
+      ZEPPELIN_ADMIN_USERNAME: admin
+      ZEPPELIN_ADMIN_PASSWORD: changeme
+      ZEPPELIN_USER_USERNAME: zeppelin
+      ZEPPELIN_USER_PASSWORD: changeme
+      # set spark-master for Zeppelin interpreter
+      ZEPPELIN_NOTEBOOK_DIR: notebook
+      ZEPPELIN_NOTEBOOK_CRON_ENABLE: 'True'
+      PYSPARK_PYTHON: python3
+      SPARK_SUBMIT_OPTIONS: ' --conf spark.ui.port=4050 --conf spark.driver.host=zeppelin --conf spark.driver.port=5050 --conf spark.driver.bindAddress=0.0.0.0 --conf spark.blockManager.port=6060 --conf spark.driver.extraJavaOptions=-Dcom.amazonaws.services.s3.enableV4 --conf spark.executor.extraJavaOptions=-Dcom.amazonaws.services.s3.enableV4'
+    volumes:
+      - ./data-transfer:/data-transfer
+      - ./plugins/spark/jars:/extra-jars
+      - ./container-volume/spark/logs/:/var/log/spark/logs
+      - ./conf/awscli/s3cfg.template:/root/.s3cfg.template
+    restart: unless-stopped
   #  ================================== Jupyter ========================================== #
   jupyter:
     image: jupyter/all-spark-notebook:spark-3.1.2

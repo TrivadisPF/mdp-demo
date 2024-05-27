@@ -849,7 +849,7 @@
       #
       # ===== Zeppelin ========
       #
-      ZEPPELIN_enable: false
+      ZEPPELIN_enable: true
       ZEPPELIN_volume_map_data: false
       ZEPPELIN_admin_username: admin
       ZEPPELIN_admin_password: changeme
@@ -860,7 +860,7 @@
       ZEPPELIN_notebook_dir: 'notebook'
       ZEPPELIN_notebook_cron_enable: true
       ZEPPELIN_spark_submit_options: ""
-      ZEPPELIN_use_local_spark: false
+      ZEPPELIN_use_local_spark: true
       #
       # ===== Jupyter ========
       #
