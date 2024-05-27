@@ -1712,7 +1712,7 @@
       TRINO_with_tpch_catalog: false
       TRINO_with_tpcds_catalog: false
       TRINO_with_memory_catalog: false
-      TRINO_starburstdata_use_license: false
+      TRINO_starburstdata_use_license: true
       TRINO_starburstdata_enable_data_product: false
       TRINO_additional_catalogs: ''
       TRINO_additional_plugins: ''
