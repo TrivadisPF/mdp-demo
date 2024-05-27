@@ -528,7 +528,7 @@
       #
       # ===== Apache Hive Metastore ========
       #
-      HIVE_METASTORE_enable: false
+      HIVE_METASTORE_enable: true
       #
       # ===== Apache Avro Tools ========
       #
