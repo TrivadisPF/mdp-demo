@@ -485,6 +485,24 @@ services:
         #
         while [ 1 -eq 1 ];do sleep 60;done
     restart: unless-stopped
+  #  ================================== Code-Server IDE (VS Code in Browser) ================= #
+  code-server:
+    image: trivadis/code-server:latest
+    container_name: code-server
+    hostname: code-server
+    labels:
+      com.platys.name: code-server
+      com.platys.description: Code Editor (VS Code in Browser)
+      com.platys.webui.title: Code-Server UI
+      com.platys.webui.url: http://dataplatform:28140
+    user: 0:0
+    ports:
+      - 28140:8080
+    environment:
+      PASSWORD: abc123!
+    volumes:
+      - ./data-transfer:/home/coder/data-transfer
+    restart: unless-stopped
   #  ================================== File Browser ================= #
   filebrowser:
     image: hurlenko/filebrowser:latest
@@ -517,7 +535,6 @@ services:
       - 28312:3000
     volumes:
       - ./data-transfer:/data-transfer
-      - ./data-transfer/docs:/docs      
       - ./conf/markdown-madness/markdown-madness.yml:/docs/.madness.yml
     command: server
     restart: unless-stopped
