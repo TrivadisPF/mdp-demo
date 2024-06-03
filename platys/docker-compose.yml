@@ -280,8 +280,8 @@ services:
       SPARK_DEFAULTS_CONF_spark_executor_extraJavaOptions:
       SPARK_DEFAULTS_CONF_spark_cores_max: 2
       SPARK_DEFAULTS_CONF_spark_executor_memory: 2048mb
-#      SPARK_DEFAULTS_CONF_spark_sql_extensions: __omit_place_holder__72048f617ea5d969730cb751281d8b7f49071925
-#      SPARK_DEFAULTS_CONF_spark_sql_catalog_spark__catalog: __omit_place_holder__72048f617ea5d969730cb751281d8b7f49071925
+#      SPARK_DEFAULTS_CONF_spark_sql_extensions: __omit_place_holder__48cdacb4344569d7c9dd516c89a13f93aa7fb3d4
+#      SPARK_DEFAULTS_CONF_spark_sql_catalog_spark__catalog: __omit_place_holder__48cdacb4344569d7c9dd516c89a13f93aa7fb3d4
       SPARK_DEFAULTS_CONF_spark_sql_catalog_spark__catalog: org.apache.spark.sql.delta.catalog.DeltaCatalog
       SPARK_DEFAULTS_CONF_spark_sql_extensions: io.delta.sql.DeltaSparkSessionExtension
       SPARK_DEFAULTS_CONF_spark_sql_legacy_allowNonEmptyLocationInCTAS: 'true'
@@ -591,9 +591,9 @@ services:
       ZEPPELIN_INTERPRETER_CONNECT_TIMEOUT: 120000
       ZEPPELIN_INTERPRETER_DEP_MVNREPO: https://repo.maven.apache.org/maven2
       ZEPPELIN_ADMIN_USERNAME: admin
-      ZEPPELIN_ADMIN_PASSWORD: changeme
+      ZEPPELIN_ADMIN_PASSWORD: abc123!
       ZEPPELIN_USER_USERNAME: zeppelin
-      ZEPPELIN_USER_PASSWORD: changeme
+      ZEPPELIN_USER_PASSWORD: abc123!
       # set spark-master for Zeppelin interpreter
       ZEPPELIN_NOTEBOOK_DIR: notebook
       ZEPPELIN_NOTEBOOK_CRON_ENABLE: 'True'
