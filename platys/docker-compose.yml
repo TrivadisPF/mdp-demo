@@ -280,8 +280,8 @@ services:
       SPARK_DEFAULTS_CONF_spark_executor_extraJavaOptions:
       SPARK_DEFAULTS_CONF_spark_cores_max: 2
       SPARK_DEFAULTS_CONF_spark_executor_memory: 2048mb
-#      SPARK_DEFAULTS_CONF_spark_sql_extensions: __omit_place_holder__0afdbdf9d391e414052cf5f2660a841be6a30309
-#      SPARK_DEFAULTS_CONF_spark_sql_catalog_spark__catalog: __omit_place_holder__0afdbdf9d391e414052cf5f2660a841be6a30309
+#      SPARK_DEFAULTS_CONF_spark_sql_extensions: __omit_place_holder__49c00ee49b436d902658839127d7f9757b63b668
+#      SPARK_DEFAULTS_CONF_spark_sql_catalog_spark__catalog: __omit_place_holder__49c00ee49b436d902658839127d7f9757b63b668
       SPARK_DEFAULTS_CONF_spark_sql_catalog_spark__catalog: org.apache.spark.sql.delta.catalog.DeltaCatalog
       SPARK_DEFAULTS_CONF_spark_sql_extensions: io.delta.sql.DeltaSparkSessionExtension
       SPARK_DEFAULTS_CONF_spark_sql_legacy_allowNonEmptyLocationInCTAS: 'true'
@@ -714,11 +714,13 @@ services:
       POSTGRESQL_USER: postgres
       POSTGRESQL_PASSWORD: abc123!
       EVENT_LISTENER_CONFIG_FILES: ''
+      TRINO_AUTH_ENABLED: #
     volumes:
       - ./data-transfer:/data-transfer
       - ./conf/starburstdata/single/config.properties:/etc/starburst/config.properties
       - ./conf/starburstdata/single/node.properties:/etc/starburst/node.properties
       - ./conf/starburstdata/catalog/minio.properties:/etc/starburst/catalog/minio.properties
+      - ./conf/starburstdata/catalog/delta.properties:/etc/starburst/catalog/delta.properties
       - ./conf/starburstdata/catalog/postgresql.properties:/etc/starburst/catalog/postgresql.properties
       - ./licenses/starburstdata/starburstdata.license:/etc/starburst/starburstdata.license
       - ./custom-conf/starburstdata/security:/etc/starburst/security
