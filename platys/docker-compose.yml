@@ -719,7 +719,6 @@ services:
       - ./conf/starburstdata/single/config.properties:/etc/starburst/config.properties
       - ./conf/starburstdata/single/node.properties:/etc/starburst/node.properties
       - ./conf/starburstdata/catalog/minio.properties:/etc/starburst/catalog/minio.properties
-      - ./conf/starburstdata/catalog/delta.properties:/etc/starburst/catalog/delta.properties
       - ./conf/starburstdata/catalog/postgresql.properties:/etc/starburst/catalog/postgresql.properties
       - ./licenses/starburstdata/starburstdata.license:/etc/starburst/starburstdata.license
       - ./custom-conf/starburstdata/security:/etc/starburst/security
