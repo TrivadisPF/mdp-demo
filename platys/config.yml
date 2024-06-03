@@ -696,6 +696,7 @@
       # ===== Apache NiFi ========
       #
       NIFI_enable: true
+      NIFI_version: 1.25.0
       NIFI_major_version: 1
       NIFI_run_secure: true
       NIFI_use_custom_certs: false
