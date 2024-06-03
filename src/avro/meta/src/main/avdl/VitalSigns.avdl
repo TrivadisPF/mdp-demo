@@ -1,0 +1,40 @@
+@namespace("com.mdp.demo")
+protocol VitalSignsProtocol {
+  record VitalSignsMessage {
+    string ehrUid;
+    string operationType;
+    string eventName;
+    string compositionId;
+    VitalSigns vitalSigns;
+    AuditDetails auditDetails;
+  }
+
+  record VitalSigns {
+    union { string, null } subjectId;
+    union { double , null } systolic;
+    union { string, null }  systolicUnit;
+    union { double , null } diastolic;
+    union { string, null }  diastolicUnit;
+    union { string, null }  position;
+    union { string, null }  positionCode;
+    union { string, null }  cuffSize;
+    union { string, null }  cuffSizeCode;
+    union { double , null } heartRate;
+    union { string, null }  heartRateUnit;
+    union { double , null } respirationRate;
+    union { string, null }  respirationRateUnit;
+    union { double , null } temperature;
+    union { string, null }  temperatureUnit;
+    union { double , null } weight;
+    union { string, null }  weightUnit;
+    union { double , null } height;
+    union { string, null }  heightUnit;
+  }
+
+  record AuditDetails {
+    string systemId;
+    string comitter;
+    string timeCommitted;
+    string changeType;
+  }
+}

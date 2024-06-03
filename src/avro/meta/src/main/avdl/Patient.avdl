@@ -1,0 +1,35 @@
+@namespace("com.mdp.demo")
+
+protocol PatientProtocol {
+    record PatientMessage {
+        string fullUrl;
+        string resourceType;
+        int id;
+        string mrn_identifier;
+        boolean active;
+        Name name;
+        string gender;
+        string birthDate;
+        union { Address, null } address;
+        union { Photo, null } photo;
+    }
+
+    record Name {
+        union { string, null } use;
+        union { string, null } familyName;
+        union { string, null } givenName;
+    }
+
+    record Address {
+        union { string, null } use;
+        union { string, null } street;
+        union { string, null } city;
+        union { string, null } postalCode;
+        union { string, null } country;
+    }
+
+    record Photo {
+        string contentType;
+        string data;
+    }
+}
