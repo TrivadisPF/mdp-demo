@@ -721,7 +721,7 @@
       #
       # ===== Apache NiFi Registry ========
       #
-      NIFI_REGISTRY_enable: false
+      NIFI_REGISTRY_enable: true
       NIFI_REGISTRY_major_version: 1
       NIFI_REGISTRY_log_level: INFO
       NIFI_REGISTRY_run_secure: false
@@ -869,6 +869,7 @@
       JUPYTER_edition: 'all-spark'
       JUPYTER_volume_map_data: false
       JUPYTER_python_packages: ''
+      JUPYTER_requirements_file: ''
       JUPYTER_spark_jars_packages: ''
       JUPYTER_tokenless: false
       JUPYTER_token: 'abc123abc123!'
