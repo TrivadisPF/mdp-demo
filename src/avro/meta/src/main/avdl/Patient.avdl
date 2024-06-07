@@ -10,7 +10,7 @@ protocol PatientProtocol {
         Name name;
         string gender;
         string birthDate;
-        union { Address, null } address;
+        union { array<Address>, null } addresses;
         union { Photo, null } photo;
     }
 

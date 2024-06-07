@@ -23,7 +23,7 @@ protocol VitalSignsProtocol {
     union { string, null }  heartRateUnit;
     union { double , null } respirationRate;
     union { string, null }  respirationRateUnit;
-    union { double , null } temperature;
+    union { array<double> , null } temperatures;
     union { string, null }  temperatureUnit;
     union { double , null } weight;
     union { string, null }  weightUnit;
