@@ -266,7 +266,7 @@ services:
       CORE_CONF_fs_s3a_path_style_access: 'true'
       HIVE_SITE_CONF_fs_s3a_endpoint: http://minio-1:9000
       HIVE_SITE_CONF_fs_s3a_access_key: minio
-      HIVE_SITE_CONF_fs_s3a_secret_key: abc123abc123!
+      HIVE_SITE_CONF_fs_s3a_secret_key: mdpDemo2024!
       HIVE_SITE_CONF_fs_s3a_path_style_access: 'true'
       HIVE_SITE_CONF_fs_s3a_impl: org.apache.hadoop.fs.s3a.S3AFileSystem
       SPARK_DEFAULTS_CONF_spark_hadoop_fs_s3a_impl: org.apache.hadoop.fs.s3a.S3AFileSystem
@@ -280,8 +280,8 @@ services:
       SPARK_DEFAULTS_CONF_spark_executor_extraJavaOptions:
       SPARK_DEFAULTS_CONF_spark_cores_max: 2
       SPARK_DEFAULTS_CONF_spark_executor_memory: 2048mb
-#      SPARK_DEFAULTS_CONF_spark_sql_extensions: __omit_place_holder__fba2ef714173d95d71d70c14f083dc8aa5312af6
-#      SPARK_DEFAULTS_CONF_spark_sql_catalog_spark__catalog: __omit_place_holder__fba2ef714173d95d71d70c14f083dc8aa5312af6
+#      SPARK_DEFAULTS_CONF_spark_sql_extensions: __omit_place_holder__86e4f7c2707901929702546acc543d25d247b875
+#      SPARK_DEFAULTS_CONF_spark_sql_catalog_spark__catalog: __omit_place_holder__86e4f7c2707901929702546acc543d25d247b875
       SPARK_DEFAULTS_CONF_spark_sql_catalog_spark__catalog: org.apache.spark.sql.delta.catalog.DeltaCatalog
       SPARK_DEFAULTS_CONF_spark_sql_extensions: io.delta.sql.DeltaSparkSessionExtension
       SPARK_DEFAULTS_CONF_spark_sql_legacy_allowNonEmptyLocationInCTAS: 'true'
@@ -320,7 +320,7 @@ services:
       CORE_CONF_fs_s3a_path_style_access: 'true'
       HIVE_SITE_CONF_fs_s3a_endpoint: http://minio-1:9000
       HIVE_SITE_CONF_fs_s3a_access_key: minio
-      HIVE_SITE_CONF_fs_s3a_secret_key: abc123abc123!
+      HIVE_SITE_CONF_fs_s3a_secret_key: mdpDemo2024!
       HIVE_SITE_CONF_fs_s3a_path_style_access: 'true'
       HIVE_SITE_CONF_fs_s3a_impl: org.apache.hadoop.fs.s3a.S3AFileSystem
       SPARK_DEFAULTS_CONF_spark_hadoop_fs_s3a_impl: org.apache.hadoop.fs.s3a.S3AFileSystem
@@ -370,7 +370,7 @@ services:
       CORE_CONF_fs_s3a_path_style_access: 'true'
       HIVE_SITE_CONF_fs_s3a_endpoint: http://minio-1:9000
       HIVE_SITE_CONF_fs_s3a_access_key: minio
-      HIVE_SITE_CONF_fs_s3a_secret_key: abc123abc123!
+      HIVE_SITE_CONF_fs_s3a_secret_key: mdpDemo2024!
       HIVE_SITE_CONF_fs_s3a_path_style_access: 'true'
       HIVE_SITE_CONF_fs_s3a_impl: org.apache.hadoop.fs.s3a.S3AFileSystem
       SPARK_DEFAULTS_CONF_spark_hadoop_fs_s3a_impl: org.apache.hadoop.fs.s3a.S3AFileSystem
@@ -420,7 +420,7 @@ services:
       CORE_CONF_fs_s3a_path_style_access: 'true'
       HIVE_SITE_CONF_fs_s3a_endpoint: http://minio-1:9000
       HIVE_SITE_CONF_fs_s3a_access_key: minio
-      HIVE_SITE_CONF_fs_s3a_secret_key: abc123abc123!
+      HIVE_SITE_CONF_fs_s3a_secret_key: mdpDemo2024!
       HIVE_SITE_CONF_fs_s3a_path_style_access: 'true'
       HIVE_SITE_CONF_fs_s3a_impl: org.apache.hadoop.fs.s3a.S3AFileSystem
       SPARK_DEFAULTS_CONF_spark_hadoop_fs_s3a_impl: org.apache.hadoop.fs.s3a.S3AFileSystem
@@ -468,7 +468,7 @@ services:
       CORE_CONF_fs_s3a_path_style_access: 'true'
       HIVE_SITE_CONF_fs_s3a_endpoint: http://minio-1:9000
       HIVE_SITE_CONF_fs_s3a_access_key: minio
-      HIVE_SITE_CONF_fs_s3a_secret_key: abc123abc123!
+      HIVE_SITE_CONF_fs_s3a_secret_key: mdpDemo2024!
       HIVE_SITE_CONF_fs_s3a_path_style_access: 'true'
       HIVE_SITE_CONF_fs_s3a_impl: org.apache.hadoop.fs.s3a.S3AFileSystem
       SPARK_DEFAULTS_CONF_spark_hadoop_fs_s3a_impl: org.apache.hadoop.fs.s3a.S3AFileSystem
@@ -514,7 +514,7 @@ services:
       CORE_CONF_fs_s3a_path_style_access: 'true'
       HIVE_SITE_CONF_fs_s3a_endpoint: http://minio-1:9000
       HIVE_SITE_CONF_fs_s3a_access_key: minio
-      HIVE_SITE_CONF_fs_s3a_secret_key: abc123abc123!
+      HIVE_SITE_CONF_fs_s3a_secret_key: mdpDemo2024!
       HIVE_SITE_CONF_fs_s3a_path_style_access: 'true'
       HIVE_SITE_CONF_fs_s3a_impl: org.apache.hadoop.fs.s3a.S3AFileSystem
       # necessary for Trino to be able to read from Avro
@@ -572,14 +572,14 @@ services:
       S3_PATH_STYLE_ACCESS: 'true'
       S3_REGION: us-east-1
       PLATYS_AWS_ACCESS_KEY: minio
-      PLATYS_AWS_SECRET_ACCESS_KEY: abc123abc123!
+      PLATYS_AWS_SECRET_ACCESS_KEY: mdpDemo2024!
       NIFI_REMOTE_INPUT_SOCKET_PORT: '10005'
       NIFI_REMOTE_INPUT_HOST: nifi-1
       NIFI_SENSITIVE_PROPS_KEY: 12345678901234567890A
       SINGLE_USER_CREDENTIALS_USERNAME: nifi
-      SINGLE_USER_CREDENTIALS_PASSWORD: abc123abc123!
+      SINGLE_USER_CREDENTIALS_PASSWORD: mdpDemo2024!
       INITIAL_ADMIN_IDENTITY: nifi
-      VAULT_TOKEN: abc123!
+      VAULT_TOKEN: mdpDemo2024!
     volumes:
       - ./data-transfer:/data-transfer
       - ./plugins/nifi/jars/:/extra-jars/
@@ -656,17 +656,17 @@ services:
       CORE_CONF_fs_s3a_path_style_access: 'true'
       HIVE_SITE_CONF_fs_s3a_endpoint: http://minio-1:9000
       HIVE_SITE_CONF_fs_s3a_access_key: minio
-      HIVE_SITE_CONF_fs_s3a_secret_key: abc123abc123!
+      HIVE_SITE_CONF_fs_s3a_secret_key: mdpDemo2024!
       HIVE_SITE_CONF_fs_s3a_path_style_access: 'true'
       HIVE_SITE_CONF_fs_s3a_impl: org.apache.hadoop.fs.s3a.S3AFileSystem
       SPARK_DEFAULTS_CONF_spark_hadoop_fs_s3a_impl: org.apache.hadoop.fs.s3a.S3AFileSystem
       SPARK_DEFAULTS_CONF_spark_hadoop_fs_s3a_endpoint: http://minio-1:9000
       SPARK_DEFAULTS_CONF_spark_hadoop_fs_s3a_path_style_access: 'true'
       SPARK_HADOOP_FS_S3A_ACCESS_KEY: minio
-      SPARK_HADOOP_FS_S3A_SECRET_KEY: abc123abc123!
+      SPARK_HADOOP_FS_S3A_SECRET_KEY: mdpDemo2024!
       # for awscli & s3cmd
       AWS_ACCESS_KEY_ID: minio
-      AWS_SECRET_ACCESS_KEY: ${PLATYS_AWS_SECRET_ACCESS_KEY:-abc123abc123!}
+      AWS_SECRET_ACCESS_KEY: ${PLATYS_AWS_SECRET_ACCESS_KEY:-mdpDemo2024!}
       AWS_ENDPOINT: http://minio-1:9000
       AWS_DEFAULT_REGION: us-east-1
       SPARK_DEFAULTS_CONF_spark_sql_catalog_spark__catalog: org.apache.spark.sql.delta.catalog.DeltaCatalog
@@ -692,9 +692,9 @@ services:
       ZEPPELIN_INTERPRETER_CONNECT_TIMEOUT: 120000
       ZEPPELIN_INTERPRETER_DEP_MVNREPO: https://repo.maven.apache.org/maven2
       ZEPPELIN_ADMIN_USERNAME: admin
-      ZEPPELIN_ADMIN_PASSWORD: abc123!
+      ZEPPELIN_ADMIN_PASSWORD: mdpDemo2024!
       ZEPPELIN_USER_USERNAME: zeppelin
-      ZEPPELIN_USER_PASSWORD: abc123!
+      ZEPPELIN_USER_PASSWORD: mdpDemo2024!
       # set spark-master for Zeppelin interpreter
       ZEPPELIN_NOTEBOOK_DIR: notebook
       ZEPPELIN_NOTEBOOK_CRON_ENABLE: 'True'
@@ -726,23 +726,23 @@ services:
     environment:
       JUPYTER_ENABLE_LAB: "'yes'"
       GRANT_SUDO: "'yes'"
-      JUPYTER_TOKEN: abc123abc123!
+      JUPYTER_TOKEN: mdpDemo2024!
       DOCKER_STACKS_JUPYTER_CMD: lab
       CORE_CONF_fs_s3a_endpoint: http://minio-1:9000
       CORE_CONF_fs_s3a_path_style_access: 'true'
       HIVE_SITE_CONF_fs_s3a_endpoint: http://minio-1:9000
       HIVE_SITE_CONF_fs_s3a_access_key: minio
-      HIVE_SITE_CONF_fs_s3a_secret_key: abc123abc123!
+      HIVE_SITE_CONF_fs_s3a_secret_key: mdpDemo2024!
       HIVE_SITE_CONF_fs_s3a_path_style_access: 'true'
       HIVE_SITE_CONF_fs_s3a_impl: org.apache.hadoop.fs.s3a.S3AFileSystem
       SPARK_DEFAULTS_CONF_spark_hadoop_fs_s3a_impl: org.apache.hadoop.fs.s3a.S3AFileSystem
       SPARK_DEFAULTS_CONF_spark_hadoop_fs_s3a_endpoint: http://minio-1:9000
       SPARK_DEFAULTS_CONF_spark_hadoop_fs_s3a_path_style_access: 'true'
       SPARK_HADOOP_FS_S3A_ACCESS_KEY: minio
-      SPARK_HADOOP_FS_S3A_SECRET_KEY: abc123abc123!
+      SPARK_HADOOP_FS_S3A_SECRET_KEY: mdpDemo2024!
       # for awscli & s3cmd
       AWS_ACCESS_KEY_ID: minio
-      AWS_SECRET_ACCESS_KEY: ${PLATYS_AWS_SECRET_ACCESS_KEY:-abc123abc123!}
+      AWS_SECRET_ACCESS_KEY: ${PLATYS_AWS_SECRET_ACCESS_KEY:-mdpDemo2024!}
       AWS_ENDPOINT: http://minio-1:9000
       AWS_DEFAULT_REGION: us-east-1
     volumes:
@@ -761,6 +761,49 @@ services:
         /maven-download.sh central com.amazonaws:aws-java-sdk-bundle:1.11.375,org.apache.hadoop:hadoop-aws:3.2.1,com.google.guava:guava:14.0.1 /usr/local/spark/jars
         start-notebook.sh
     restart: unless-stopped
+  #  ================================== Redis ========================================== #
+  redis-1:
+    image: bitnami/redis:7.2
+    hostname: redis-1
+    container_name: redis-1
+    labels:
+      com.platys.name: redis
+      com.platys.description: Key-value store
+    ports:
+      - 6379:6379
+    environment:
+      - REDIS_PORT_NUMBER=6379
+      - ALLOW_EMPTY_PASSWORD=yes
+      - REDIS_AOF_ENABLED=yes
+      - REDIS_RDB_POLICY_DISABLED=yes
+    volumes:
+      - ./data-transfer:/data-transfer
+    command: /opt/bitnami/scripts/redis/run.sh --loglevel notice
+    restart: unless-stopped
+    healthcheck:
+      test: [CMD-SHELL, redis-cli --no-auth-warning ping | grep PONG]
+      interval: 5s
+      timeout: 3s
+      retries: 5
+  #  ================================== Redis Commander ========================================== #
+  redis-commander:
+    image: rediscommander/redis-commander:latest
+    container_name: redis-commander
+    hostname: redis-commander
+    labels:
+      com.platys.name: redis-commander
+      com.platys.description: Graphical interface for Redis
+      com.platys.webui.title: Redis Commander UI
+      com.platys.webui.url: http://dataplatform:28119
+    ports:
+      - 28119:8081
+    environment:
+      - REDIS_HOST=redis-1
+      - REDIS_PORT=6379
+      - REDIS_DB=0
+    volumes:
+      - ./data-transfer:/data-transfer
+    restart: unless-stopped
   #  ================================== PostgreSQL ========================================== #
   postgresql:
     image: postgres:16
@@ -772,12 +815,12 @@ services:
     ports:
       - 5432:5432
     environment:
-      - POSTGRES_PASSWORD=abc123!
+      - POSTGRES_PASSWORD=mdpDemo2024!
       - POSTGRES_USER=postgres
       - POSTGRES_DB=postgres
       - POSTGRES_MULTIPLE_DATABASES=demodb,starburst
       - POSTGRES_MULTIPLE_USERS=demo,starburst
-      - POSTGRES_MULTIPLE_PASSWORDS=abc123!,abc123!
+      - POSTGRES_MULTIPLE_PASSWORDS=mdpDemo2024!,abc123!
       - POSTGRES_MULTIPLE_ADDL_ROLES=
       - PGDATA=/var/lib/postgresql/data/pgdata
       - DB_SCHEMA=demo
@@ -820,16 +863,18 @@ services:
       DATA_PRODUCT_ENABLED: 'false'
       S3_ENDPOINT: http://minio-1:9000
       S3_AWS_ACCESS_KEY: minio
-      S3_AWS_SECRET_KEY: abc123abc123!
+      S3_AWS_SECRET_KEY: mdpDemo2024!
       S3_PATH_STYLE_ACCESS: 'true'
       HIVE_STORAGE_FORMAT: ORC
       HIVE_COMPRESSION_CODEC: GZIP
       HIVE_VIEWS_ENABLED: 'false'
       HIVE_RUN_AS_INVOKER: 'false'
       HIVE_LEGACY_TRANSLATION: 'false'
-      POSTGRESQL_DATABASE: postgres
-      POSTGRESQL_USER: postgres
-      POSTGRESQL_PASSWORD: abc123!
+      POSTGRESQL_DATABASE: demodb
+      POSTGRESQL_USER: demo
+      POSTGRESQL_PASSWORD: mdpDmeo2024!
+      REDIS_TABLE_NAMES: ''
+      REDIS_NODES: redis-1:6379
       EVENT_LISTENER_CONFIG_FILES: ''
     volumes:
       - ./data-transfer:/data-transfer
@@ -838,6 +883,7 @@ services:
       - ./conf/starburstdata/catalog/minio.properties:/etc/starburst/catalog/minio.properties
       - ./conf/starburstdata/catalog/delta.properties:/etc/starburst/catalog/delta.properties
       - ./conf/starburstdata/catalog/postgresql.properties:/etc/starburst/catalog/postgresql.properties
+      - ./conf/starburstdata/catalog/redis.properties:/etc/starburst/catalog/redis.properties
       - ./licenses/starburstdata/starburstdata.license:/etc/starburst/starburstdata.license
       - ./custom-conf/starburstdata/security:/etc/starburst/security
     restart: unless-stopped
@@ -867,7 +913,7 @@ services:
       - 9010:9010
     environment:
       MINIO_ROOT_USER: minio
-      MINIO_ROOT_PASSWORD: abc123abc123!
+      MINIO_ROOT_PASSWORD: mdpDemo2024!
       MINIO_REGION_NAME: us-east-1
       MINIO_DOMAIN: minio
       MINIO_SERVER_URL: http://${PUBLIC_IP}:9000
@@ -900,7 +946,7 @@ services:
       - -c
       - |
         /usr/src/app/wait-for-it.sh -t 180 minio-1:9000
-        mc alias set minio-1 http://minio-1:9000 minio abc123abc123!
+        mc alias set minio-1 http://minio-1:9000 minio mdpDemo2024!
         mc mb --ignore-existing minio-1/admin-bucket
            for bucket in $$(tr ',' '\n' <<< "")
         do
@@ -965,7 +1011,7 @@ services:
       - VAULT_API_ADDR=http://0.0.0.0:8200
       - VAULT_ADDRESS=http://0.0.0.0:8200
       - VAULT_DEV_LISTEN_ADDRESS=0.0.0.0:8200
-      - VAULT_DEV_ROOT_TOKEN_ID=abc123!
+      - VAULT_DEV_ROOT_TOKEN_ID=mdpDemo2024!
     volumes:
       - ./data-transfer:/data-transfer
       - ./conf/vault/config:/vault/config

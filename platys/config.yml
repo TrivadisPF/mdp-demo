@@ -706,7 +706,7 @@
       NIFI_inital_admin_identitiy: ''
       NIFI_username: nifi
       # password must be 12 chars minimum, otherwise a random user and password is generated
-      NIFI_password: abc123abc123!
+      NIFI_password: mdpDemo2024!
       NIFI_nodes: 1
       NIFI_create_cluster: false
       NIFI_election_max_wait: '1 min'
@@ -833,9 +833,9 @@
       AIRFLOW_executor: local
       AIRFLOW_workers: 1
       AIRFLOW_admin_username: 'airflow'
-      AIRFLOW_admin_password: 'abc123!'
+      AIRFLOW_admin_password: 'mdpDemo2024!'
       AIRFLOW_fernet_key: ''
-      AIRFLOW_secret_key: 'abc123!'
+      AIRFLOW_secret_key: 'mdpDemo2024!'
       AIRFLOW_additional_requirements: ''
       AIRFLOW_auth_backends: 'airflow.api.auth.backend.session'
       AIRFLOW_volume_map_logs: false
@@ -854,9 +854,9 @@
       ZEPPELIN_enable: true
       ZEPPELIN_volume_map_data: false
       ZEPPELIN_admin_username: admin
-      ZEPPELIN_admin_password: abc123!
+      ZEPPELIN_admin_password: mdpDemo2024!
       ZEPPELIN_user_username: zeppelin
-      ZEPPELIN_user_password: abc123!
+      ZEPPELIN_user_password: mdpDemo2024!
       ZEPPELIN_spark_cores_max:
       ZEPPELIN_spark_executor_memory:
       ZEPPELIN_notebook_dir: 'notebook'
@@ -874,7 +874,7 @@
       JUPYTER_requirements_file: ''
       JUPYTER_spark_jars_packages: ''
       JUPYTER_tokenless: false
-      JUPYTER_token: 'abc123abc123!'
+      JUPYTER_token: 'mdpDemo2024!'
       JUPYTER_nb_user: ''
       # JUPYTER_notebook_args: '--log-level='DEBUG' --dev-mode'
       JUPYTER_notebook_args: ''
@@ -1193,7 +1193,7 @@
       #
       # ===== Redis ========
       #
-      REDIS_enable: false
+      REDIS_enable: true
       REDIS_replicasets: 0
       REDIS_volume_map_data: false
       REDIS_allow_empty_password: true
@@ -1238,7 +1238,7 @@
       #
       # ===== Redis Commander ========
       #
-      REDIS_COMMANDER_enable: false
+      REDIS_COMMANDER_enable: true
       #
       # ===== Apache Casandra ========
       #
@@ -1601,11 +1601,11 @@
       POSTGRESQL_volume_map_data: false
       POSTGRESQL_database: postgres
       POSTGRESQL_user: postgres
-      POSTGRESQL_password: abc123!
+      POSTGRESQL_password: mdpDemo2024!
       POSTGRESQL_schema: demo
       POSTGRESQL_multiple_databases: 'demodb,starburst'
       POSTGRESQL_multiple_users: 'demo,starburst'
-      POSTGRESQL_multiple_passwords: 'abc123!,abc123!'
+      POSTGRESQL_multiple_passwords: 'mdpDemo2024!,abc123!'
       POSTGRESQL_multiple_addl_roles: ''
       # one of the valid Postgresql wal_levels: "replica", "minimal", "logical". Use logical if you want to work with Debezium.
       POSTGRESQL_wal_level:
@@ -1702,9 +1702,9 @@
       TRINO_kafka_table_names: ''
       TRINO_kafka_default_schema: 'default'
       TRINO_event_listeners: ''
-      TRINO_postgresql_database: ''
-      TRINO_postgresql_user: ''
-      TRINO_postgresql_password: ''
+      TRINO_postgresql_database: 'demodb'
+      TRINO_postgresql_user: 'demo'
+      TRINO_postgresql_password: 'mdpDmeo2024!'
       TRINO_oracle_user: ''
       TRINO_oracle_password: ''
       TRINO_sqlserver_database: ''
@@ -1891,7 +1891,7 @@
       MINIO_install: 'single'
       MINIO_nodes: 1
       MINIO_access_key: minio
-      MINIO_secret_key: abc123abc123!
+      MINIO_secret_key: mdpDemo2024!
       # add additional buckets, comma separated, admin-bucket will be created by default
       MINIO_buckets: ''
       MINIO_browser_enable: true
@@ -2100,7 +2100,7 @@
       #
       VAULT_enable: true
       VAULT_use_dev_mode: true
-      VAULT_dev_mode_token: 'abc123!'
+      VAULT_dev_mode_token: 'mdpDemo2024!'
       VAULT_volume_map_data: false
       #
       # ===== Keycloak ========
