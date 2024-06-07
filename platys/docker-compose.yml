@@ -280,8 +280,8 @@ services:
       SPARK_DEFAULTS_CONF_spark_executor_extraJavaOptions:
       SPARK_DEFAULTS_CONF_spark_cores_max: 2
       SPARK_DEFAULTS_CONF_spark_executor_memory: 2048mb
-#      SPARK_DEFAULTS_CONF_spark_sql_extensions: __omit_place_holder__e49a30b395359ad14b810e69efa8af05f8d7e3c4
-#      SPARK_DEFAULTS_CONF_spark_sql_catalog_spark__catalog: __omit_place_holder__e49a30b395359ad14b810e69efa8af05f8d7e3c4
+#      SPARK_DEFAULTS_CONF_spark_sql_extensions: __omit_place_holder__fba2ef714173d95d71d70c14f083dc8aa5312af6
+#      SPARK_DEFAULTS_CONF_spark_sql_catalog_spark__catalog: __omit_place_holder__fba2ef714173d95d71d70c14f083dc8aa5312af6
       SPARK_DEFAULTS_CONF_spark_sql_catalog_spark__catalog: org.apache.spark.sql.delta.catalog.DeltaCatalog
       SPARK_DEFAULTS_CONF_spark_sql_extensions: io.delta.sql.DeltaSparkSessionExtension
       SPARK_DEFAULTS_CONF_spark_sql_legacy_allowNonEmptyLocationInCTAS: 'true'
@@ -579,6 +579,7 @@ services:
       SINGLE_USER_CREDENTIALS_USERNAME: nifi
       SINGLE_USER_CREDENTIALS_PASSWORD: abc123abc123!
       INITIAL_ADMIN_IDENTITY: nifi
+      VAULT_TOKEN: abc123!
     volumes:
       - ./data-transfer:/data-transfer
       - ./plugins/nifi/jars/:/extra-jars/
@@ -946,6 +947,32 @@ services:
       - ./data-transfer:/data
     user: 1000:1000
     restart: unless-stopped
+  #  ================================== Vault ================= #
+  vault:
+    image: hashicorp/vault:1.15
+    container_name: vault
+    hostname: vault
+    labels:
+      com.platys.name: vault
+      com.platys.description: Secrets management, encryption as a service, and privileged access management
+      com.platys.webui.title: Vault UI
+      com.platys.webui.url: http://dataplatform:8200
+    ports:
+      - 8200:8200
+    environment:
+      - VAULT_ADDR=http://0.0.0.0:8200
+#      - VAULT_LOCAL_CONFIG='{"listener": [{"tcp":{"address": "0.0.0.0:8200","tls_disable":"0", "tls_cert_file":"/data/vault-volume/certificate.pem", "tls_key_file":"/data/vault-volume/key.pem"}}], "default_lease_ttl": "168h", "max_lease_ttl": "720h"}, "ui": true}'
+      - VAULT_API_ADDR=http://0.0.0.0:8200
+      - VAULT_ADDRESS=http://0.0.0.0:8200
+      - VAULT_DEV_LISTEN_ADDRESS=0.0.0.0:8200
+      - VAULT_DEV_ROOT_TOKEN_ID=abc123!
+    volumes:
+      - ./data-transfer:/data-transfer
+      - ./conf/vault/config:/vault/config
+      - ./container-volume/vault/data:/vault/data
+    cap_add:
+      - IPC_LOCK
+    command: vault server -dev
   #  ================================== Portainer ========================================== #
   docker-exec-webconsole:
     image: bitbull/docker-exec-web-console:latest
