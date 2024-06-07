@@ -940,8 +940,6 @@ services:
       - 28178:8080
     environment:
       - FB_BASEURL=/filebrowser
-      - FB_USER=admin
-      - FB_PASSWORD=$2y$10$tE/y/i/nYAfZbH39.6eoY.Wez.JeN1ExQF7Kp5tLaezWrfaK3/rgW
     volumes:
       - ./data-transfer:/data
     user: 1000:1000
