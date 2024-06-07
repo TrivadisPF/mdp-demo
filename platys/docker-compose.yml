@@ -280,8 +280,8 @@ services:
       SPARK_DEFAULTS_CONF_spark_executor_extraJavaOptions:
       SPARK_DEFAULTS_CONF_spark_cores_max: 2
       SPARK_DEFAULTS_CONF_spark_executor_memory: 2048mb
-#      SPARK_DEFAULTS_CONF_spark_sql_extensions: __omit_place_holder__48cdacb4344569d7c9dd516c89a13f93aa7fb3d4
-#      SPARK_DEFAULTS_CONF_spark_sql_catalog_spark__catalog: __omit_place_holder__48cdacb4344569d7c9dd516c89a13f93aa7fb3d4
+#      SPARK_DEFAULTS_CONF_spark_sql_extensions: __omit_place_holder__97138492a934120ab1b3276321b3ac12333407cd
+#      SPARK_DEFAULTS_CONF_spark_sql_catalog_spark__catalog: __omit_place_holder__97138492a934120ab1b3276321b3ac12333407cd
       SPARK_DEFAULTS_CONF_spark_sql_catalog_spark__catalog: org.apache.spark.sql.delta.catalog.DeltaCatalog
       SPARK_DEFAULTS_CONF_spark_sql_extensions: io.delta.sql.DeltaSparkSessionExtension
       SPARK_DEFAULTS_CONF_spark_sql_legacy_allowNonEmptyLocationInCTAS: 'true'
@@ -843,7 +843,7 @@ services:
     volumes:
       - ./data-transfer:/data-transfer
       - ./data-transfer/docs:/docs
-      - ./conf/markdown-madness/markdown-madness.yml:/docs/.madness.yml
+      - ./custom-conf/markdown-madness/markdown-madness.yml:/docs/.madness.yml
     command: server
     restart: unless-stopped
   #  ================================== markdown-viewer ========================================== #
