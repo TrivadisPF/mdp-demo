@@ -280,8 +280,8 @@ services:
       SPARK_DEFAULTS_CONF_spark_executor_extraJavaOptions:
       SPARK_DEFAULTS_CONF_spark_cores_max: 2
       SPARK_DEFAULTS_CONF_spark_executor_memory: 2048mb
-#      SPARK_DEFAULTS_CONF_spark_sql_extensions: __omit_place_holder__97138492a934120ab1b3276321b3ac12333407cd
-#      SPARK_DEFAULTS_CONF_spark_sql_catalog_spark__catalog: __omit_place_holder__97138492a934120ab1b3276321b3ac12333407cd
+#      SPARK_DEFAULTS_CONF_spark_sql_extensions: __omit_place_holder__48df31f1a5edc2ea0b45e90b630d4cb5296b33a3
+#      SPARK_DEFAULTS_CONF_spark_sql_catalog_spark__catalog: __omit_place_holder__48df31f1a5edc2ea0b45e90b630d4cb5296b33a3
       SPARK_DEFAULTS_CONF_spark_sql_catalog_spark__catalog: org.apache.spark.sql.delta.catalog.DeltaCatalog
       SPARK_DEFAULTS_CONF_spark_sql_extensions: io.delta.sql.DeltaSparkSessionExtension
       SPARK_DEFAULTS_CONF_spark_sql_legacy_allowNonEmptyLocationInCTAS: 'true'
@@ -683,6 +683,22 @@ services:
     volumes:
       - ./data-transfer:/data-transfer
       - ./init/postgresql:/docker-entrypoint-initdb.d/
+    restart: unless-stopped
+  #  ================================== Cloudbeaver ========================================== #
+  cloudbeaver:
+    image: dbeaver/cloudbeaver:latest
+    container_name: cloudbeaver
+    hostname: cloudbeaver
+    labels:
+      com.platys.name: cloudbeaver
+      com.platys.description: Cloud Database Manager
+      com.platys.webui.title: Cloudbeaver UI
+      com.platys.webui.url: http://dataplatform:8978
+    ports:
+      - 8978:8978
+    volumes:
+      - ./data-transfer:/data-transfer
+      - ./conf/cloudbeaver/data-sources.json:/opt/cloudbeaver/workspace/GlobalConfiguration/.dbeaver/data-sources.json
     restart: unless-stopped
   #  ================================== Trino ========================================== #
   trino-1:
