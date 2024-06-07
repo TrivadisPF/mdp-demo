@@ -2094,7 +2094,7 @@
       FILE_BROWSER_enable: true
       FILE_BROWSER_volume_map_data: false
       FILE_BROWSER_user: admin
-      FILE_BROWSER_password: '$2a$12$aU.vHsBMBZYJhV6KO9MzzOlM95Azl3tmgLNwKD0XfjDYA8tFFqj0C'
+      FILE_BROWSER_password: '$2a$10$2icoJn27Ym.AQYtjrCt.1uPrr5NE7AOqD2BewCBrCYOrntulB29Wi'
       #
       # ===== Vault ========
       #

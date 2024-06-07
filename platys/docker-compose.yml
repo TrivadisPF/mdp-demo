@@ -280,8 +280,8 @@ services:
       SPARK_DEFAULTS_CONF_spark_executor_extraJavaOptions:
       SPARK_DEFAULTS_CONF_spark_cores_max: 2
       SPARK_DEFAULTS_CONF_spark_executor_memory: 2048mb
-#      SPARK_DEFAULTS_CONF_spark_sql_extensions: __omit_place_holder__2a13a47ae36c127e9ee5cab78f0b7b79d94d1982
-#      SPARK_DEFAULTS_CONF_spark_sql_catalog_spark__catalog: __omit_place_holder__2a13a47ae36c127e9ee5cab78f0b7b79d94d1982
+#      SPARK_DEFAULTS_CONF_spark_sql_extensions: __omit_place_holder__e49a30b395359ad14b810e69efa8af05f8d7e3c4
+#      SPARK_DEFAULTS_CONF_spark_sql_catalog_spark__catalog: __omit_place_holder__e49a30b395359ad14b810e69efa8af05f8d7e3c4
       SPARK_DEFAULTS_CONF_spark_sql_catalog_spark__catalog: org.apache.spark.sql.delta.catalog.DeltaCatalog
       SPARK_DEFAULTS_CONF_spark_sql_extensions: io.delta.sql.DeltaSparkSessionExtension
       SPARK_DEFAULTS_CONF_spark_sql_legacy_allowNonEmptyLocationInCTAS: 'true'
@@ -940,6 +940,8 @@ services:
       - 28178:8080
     environment:
       - FB_BASEURL=/filebrowser
+      - FB_USER=admin
+      - FB_PASSWORD=$2a$10$2icoJn27Ym.AQYtjrCt.1uPrr5NE7AOqD2BewCBrCYOrntulB29Wi
     volumes:
       - ./data-transfer:/data
     user: 1000:1000
