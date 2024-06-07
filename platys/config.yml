@@ -455,7 +455,7 @@
       
       # "hive" or "in-memory"
       SPARK_catalog: hive
-      SPARK_workers: 1
+      SPARK_workers: 3
       # to restrict the default cores, use '-Dspark.deploy.defaultCores=6'
       SPARK_master_opts: '-Dspark.deploy.defaultCores=2'
       SPARK_worker_cores:

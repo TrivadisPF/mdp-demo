@@ -280,8 +280,8 @@ services:
       SPARK_DEFAULTS_CONF_spark_executor_extraJavaOptions:
       SPARK_DEFAULTS_CONF_spark_cores_max: 2
       SPARK_DEFAULTS_CONF_spark_executor_memory: 2048mb
-#      SPARK_DEFAULTS_CONF_spark_sql_extensions: __omit_place_holder__48df31f1a5edc2ea0b45e90b630d4cb5296b33a3
-#      SPARK_DEFAULTS_CONF_spark_sql_catalog_spark__catalog: __omit_place_holder__48df31f1a5edc2ea0b45e90b630d4cb5296b33a3
+#      SPARK_DEFAULTS_CONF_spark_sql_extensions: __omit_place_holder__c3a2f134c450baf13e86d148d5148934382b43e1
+#      SPARK_DEFAULTS_CONF_spark_sql_catalog_spark__catalog: __omit_place_holder__c3a2f134c450baf13e86d148d5148934382b43e1
       SPARK_DEFAULTS_CONF_spark_sql_catalog_spark__catalog: org.apache.spark.sql.delta.catalog.DeltaCatalog
       SPARK_DEFAULTS_CONF_spark_sql_extensions: io.delta.sql.DeltaSparkSessionExtension
       SPARK_DEFAULTS_CONF_spark_sql_legacy_allowNonEmptyLocationInCTAS: 'true'
@@ -314,6 +314,106 @@ services:
     environment:
       SPARK_MASTER: spark://spark-master:7077
       SPARK_WORKER_WEBUI_PORT: '28111'
+      SPARK_WORKER_OPTS: -Dspark.worker.cleanup.enabled=true
+      SPARK_PUBLIC_DNS: ${PUBLIC_IP}
+      CORE_CONF_fs_s3a_endpoint: http://minio-1:9000
+      CORE_CONF_fs_s3a_path_style_access: 'true'
+      HIVE_SITE_CONF_fs_s3a_endpoint: http://minio-1:9000
+      HIVE_SITE_CONF_fs_s3a_access_key: minio
+      HIVE_SITE_CONF_fs_s3a_secret_key: abc123abc123!
+      HIVE_SITE_CONF_fs_s3a_path_style_access: 'true'
+      HIVE_SITE_CONF_fs_s3a_impl: org.apache.hadoop.fs.s3a.S3AFileSystem
+      SPARK_DEFAULTS_CONF_spark_hadoop_fs_s3a_impl: org.apache.hadoop.fs.s3a.S3AFileSystem
+      SPARK_DEFAULTS_CONF_spark_hadoop_fs_s3a_endpoint: http://minio-1:9000
+      SPARK_DEFAULTS_CONF_spark_hadoop_fs_s3a_path_style_access: 'true'
+      SPARK_DEFAULTS_CONF_spark_sql_catalogImplementation: hive
+      CORE_CONF_fs_defaultFS: s3a://admin-bucket
+      SPARK_DEFAULTS_CONF_spark_sql_warehouse_dir: s3a://admin-bucket/hive/warehouse
+      SPARK_DEFAULTS_CONF_spark_yarn_dist_files: /spark/conf/hive-site.xml
+      SPARK_DEFAULTS_CONF_spark_driver_extraJavaOptions:
+      SPARK_DEFAULTS_CONF_spark_executor_extraJavaOptions:
+      SPARK_DEFAULTS_CONF_spark_cores_max: 2
+      SPARK_DEFAULTS_CONF_spark_executor_memory: 2048mb
+      SPARK_DEFAULTS_CONF_spark_sql_catalog_spark__catalog: org.apache.spark.sql.delta.catalog.DeltaCatalog
+      SPARK_DEFAULTS_CONF_spark_sql_extensions: io.delta.sql.DeltaSparkSessionExtension
+      SPARK_DEFAULTS_CONF_spark_sql_legacy_allowNonEmptyLocationInCTAS: 'true'
+      SPARK_DEFAULTS_CONF_spark_jars_repositories:
+      SPARK_DEFAULTS_CONF_spark_jars_packages: org.postgresql:postgresql:42.3.4,org.apache.spark:spark-avro_2.12:3.2.4,
+      SPARK_DEFAULTS_CONF_spark_jars_excludes:
+      SPARK_INSTALL_JARS_PACKAGES: ',io.delta:delta-core_2.12:2.0.2,io.delta:delta-storage:2.0.2,org.apache.iceberg:iceberg-spark-runtime-3.2_2.12:1.2.1,org.apache.hudi:hudi-spark3.2-bundle_2.12:0.13.0'
+      SPARK_DEFAULTS_CONF_spark_jars: /spark/jars/delta-core_2.12-2.0.2.jar,/spark/jars/delta-storage-2.0.2.jar
+      SPARK_DEFAULTS_CONF_spark_jars_ivySettings:
+    volumes:
+      - ./data-transfer:/data-transfer
+      - ./plugins/spark/jars:/extra-jars
+      - ./container-volume/spark/logs/:/var/log/spark/logs
+    restart: unless-stopped
+  spark-worker-2:
+    image: trivadis/apache-spark-worker:3.2.4-hadoop3.3
+    container_name: spark-worker-2
+    hostname: spark-worker-2
+    labels:
+      com.platys.name: spark
+      com.platys.description: Spark Worker Node
+    depends_on:
+      - spark-master
+    ports:
+      - 28112:28112
+    env_file:
+      - ./conf/hadoop.env
+    environment:
+      SPARK_MASTER: spark://spark-master:7077
+      SPARK_WORKER_WEBUI_PORT: '28112'
+      SPARK_WORKER_OPTS: -Dspark.worker.cleanup.enabled=true
+      SPARK_PUBLIC_DNS: ${PUBLIC_IP}
+      CORE_CONF_fs_s3a_endpoint: http://minio-1:9000
+      CORE_CONF_fs_s3a_path_style_access: 'true'
+      HIVE_SITE_CONF_fs_s3a_endpoint: http://minio-1:9000
+      HIVE_SITE_CONF_fs_s3a_access_key: minio
+      HIVE_SITE_CONF_fs_s3a_secret_key: abc123abc123!
+      HIVE_SITE_CONF_fs_s3a_path_style_access: 'true'
+      HIVE_SITE_CONF_fs_s3a_impl: org.apache.hadoop.fs.s3a.S3AFileSystem
+      SPARK_DEFAULTS_CONF_spark_hadoop_fs_s3a_impl: org.apache.hadoop.fs.s3a.S3AFileSystem
+      SPARK_DEFAULTS_CONF_spark_hadoop_fs_s3a_endpoint: http://minio-1:9000
+      SPARK_DEFAULTS_CONF_spark_hadoop_fs_s3a_path_style_access: 'true'
+      SPARK_DEFAULTS_CONF_spark_sql_catalogImplementation: hive
+      CORE_CONF_fs_defaultFS: s3a://admin-bucket
+      SPARK_DEFAULTS_CONF_spark_sql_warehouse_dir: s3a://admin-bucket/hive/warehouse
+      SPARK_DEFAULTS_CONF_spark_yarn_dist_files: /spark/conf/hive-site.xml
+      SPARK_DEFAULTS_CONF_spark_driver_extraJavaOptions:
+      SPARK_DEFAULTS_CONF_spark_executor_extraJavaOptions:
+      SPARK_DEFAULTS_CONF_spark_cores_max: 2
+      SPARK_DEFAULTS_CONF_spark_executor_memory: 2048mb
+      SPARK_DEFAULTS_CONF_spark_sql_catalog_spark__catalog: org.apache.spark.sql.delta.catalog.DeltaCatalog
+      SPARK_DEFAULTS_CONF_spark_sql_extensions: io.delta.sql.DeltaSparkSessionExtension
+      SPARK_DEFAULTS_CONF_spark_sql_legacy_allowNonEmptyLocationInCTAS: 'true'
+      SPARK_DEFAULTS_CONF_spark_jars_repositories:
+      SPARK_DEFAULTS_CONF_spark_jars_packages: org.postgresql:postgresql:42.3.4,org.apache.spark:spark-avro_2.12:3.2.4,
+      SPARK_DEFAULTS_CONF_spark_jars_excludes:
+      SPARK_INSTALL_JARS_PACKAGES: ',io.delta:delta-core_2.12:2.0.2,io.delta:delta-storage:2.0.2,org.apache.iceberg:iceberg-spark-runtime-3.2_2.12:1.2.1,org.apache.hudi:hudi-spark3.2-bundle_2.12:0.13.0'
+      SPARK_DEFAULTS_CONF_spark_jars: /spark/jars/delta-core_2.12-2.0.2.jar,/spark/jars/delta-storage-2.0.2.jar
+      SPARK_DEFAULTS_CONF_spark_jars_ivySettings:
+    volumes:
+      - ./data-transfer:/data-transfer
+      - ./plugins/spark/jars:/extra-jars
+      - ./container-volume/spark/logs/:/var/log/spark/logs
+    restart: unless-stopped
+  spark-worker-3:
+    image: trivadis/apache-spark-worker:3.2.4-hadoop3.3
+    container_name: spark-worker-3
+    hostname: spark-worker-3
+    labels:
+      com.platys.name: spark
+      com.platys.description: Spark Worker Node
+    depends_on:
+      - spark-master
+    ports:
+      - 28113:28113
+    env_file:
+      - ./conf/hadoop.env
+    environment:
+      SPARK_MASTER: spark://spark-master:7077
+      SPARK_WORKER_WEBUI_PORT: '28113'
       SPARK_WORKER_OPTS: -Dspark.worker.cleanup.enabled=true
       SPARK_PUBLIC_DNS: ${PUBLIC_IP}
       CORE_CONF_fs_s3a_endpoint: http://minio-1:9000
