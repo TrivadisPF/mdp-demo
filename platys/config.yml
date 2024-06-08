@@ -841,7 +841,7 @@
       AIRFLOW_volume_map_logs: false
       AIRFLOW_volume_map_docker_daemon: false
       AIRFLOW_provision_examples: false
-      AIRFLOW_dag_dir_list_interval: 300
+      AIRFLOW_dag_dir_list_interval: 60
       AIRFLOW_dags_paused_at_creation: true
       AIRFLOW_expose_config: true
       # be aware: needs to be a string to prevent the ending 0 from being trimed away
