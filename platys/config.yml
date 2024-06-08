@@ -1636,7 +1636,7 @@
       #
       # ===== SQLPad UI ========
       #
-      SQLPAD_enable: false
+      SQLPAD_enable: true
       #
       # ===== SQLChat UI ========
       #
@@ -1647,7 +1647,7 @@
       #
       # ===== Querybook ========
       #
-      QUERYBOOK_enable: true
+      QUERYBOOK_enable: false
       #
       # ===== NocoDB UI ========
       #

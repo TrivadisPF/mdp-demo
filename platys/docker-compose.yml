@@ -280,8 +280,8 @@ services:
       SPARK_DEFAULTS_CONF_spark_executor_extraJavaOptions:
       SPARK_DEFAULTS_CONF_spark_cores_max: 2
       SPARK_DEFAULTS_CONF_spark_executor_memory: 2048mb
-#      SPARK_DEFAULTS_CONF_spark_sql_extensions: __omit_place_holder__e787d8c1794232b0b61ee4516993473ead3b7140
-#      SPARK_DEFAULTS_CONF_spark_sql_catalog_spark__catalog: __omit_place_holder__e787d8c1794232b0b61ee4516993473ead3b7140
+#      SPARK_DEFAULTS_CONF_spark_sql_extensions: __omit_place_holder__ffc80af9d4ec4b46b4d53b43a3d3d6a0db058c00
+#      SPARK_DEFAULTS_CONF_spark_sql_catalog_spark__catalog: __omit_place_holder__ffc80af9d4ec4b46b4d53b43a3d3d6a0db058c00
       SPARK_DEFAULTS_CONF_spark_sql_catalog_spark__catalog: org.apache.spark.sql.delta.catalog.DeltaCatalog
       SPARK_DEFAULTS_CONF_spark_sql_extensions: io.delta.sql.DeltaSparkSessionExtension
       SPARK_DEFAULTS_CONF_spark_sql_legacy_allowNonEmptyLocationInCTAS: 'true'
@@ -844,111 +844,32 @@ services:
       - ./data-transfer:/data-transfer
       - ./conf/cloudbeaver/data-sources.json:/opt/cloudbeaver/workspace/GlobalConfiguration/.dbeaver/data-sources.json
     restart: unless-stopped
-  #  ================================== Querybook ========================================== #
-  querybook-web:
-    image: querybook/querybook:latest
-    container_name: querybook-web
-    hostname: querybook-web
+  #  ================================== SQLPad ========================================== #
+  sqlpad:
+    image: sqlpad/sqlpad:latest
+    container_name: sqlpad
+    hostname: sqlpad
     labels:
-      com.platys.name: querybook
-      com.platys.description: Big Data Querying UI
-      com.platys.webui.title: Querybook UI
-      com.platys.webui.url: http://dataplatform:28301
+      com.platys.name: sqlpad
+      com.platys.description: Web-based SQL editor
+      com.platys.webui.title: SQLPad UI
+      com.platys.webui.url: http://dataplatform:28194
     ports:
-      - 28301:10001
+      - 28194:3000
     environment:
-      PORT: 10001
-      APIPORT: 3000
-      HOT_RELOAD: true
-      FLASK_SECRET_KEY: SOME_RANDOM_SECRET_KEY
-      DATABASE_CONN: mysql+pymysql://test:passw0rd@querybook-mysql:3306/querybook2?charset=utf8mb4
-      REDIS_URL: redis://querybook-redis:6379/0
-      ELASTICSEARCH_HOST: querybook-elasticsearch:9200
-    volumes:
-      - ./data-transfer:/data-transfer
-    command: ./querybook/scripts/runservice prod_web
-    restart: unless-stopped
-  querybook-worker:
-    image: querybook/querybook:latest
-    container_name: querybook-worker
-    hostname: querybook-worker
-    labels:
-      com.platys.name: querybook
-      com.platys.description: Big Data Querying UI
-    environment:
-      FLASK_SECRET_KEY: SOME_RANDOM_SECRET_KEY
-      DATABASE_CONN: mysql+pymysql://test:passw0rd@querybook-mysql:3306/querybook2?charset=utf8mb4
-      REDIS_URL: redis://querybook-redis:6379/0
-      ELASTICSEARCH_HOST: querybook-elasticsearch:9200
-    volumes:
-      - ./data-transfer:/data-transfer
-    tty: true
-    stdin_open: true
-    command: ./querybook/scripts/runservice prod_worker -c 150 -l info -Ofair -n celery@%h
-    restart: unless-stopped
-  querybook-scheduler:
-    image: querybook/querybook:latest
-    container_name: querybook-scheduler
-    hostname: querybook-scheduler
-    labels:
-      com.platys.name: querybook
-      com.platys.description: Big Data Querying UI
-    environment:
-      FLASK_SECRET_KEY: SOME_RANDOM_SECRET_KEY
-      DATABASE_CONN: mysql+pymysql://test:passw0rd@querybook-mysql:3306/querybook2?charset=utf8mb4
-      REDIS_URL: redis://querybook-redis:6379/0
-      ELASTICSEARCH_HOST: querybook-elasticsearch:9200
-    volumes:
-      - ./data-transfer:/data-transfer
-    tty: true
-    stdin_open: true
-    command: ./querybook/scripts/runservice prod_scheduler
-    restart: unless-stopped
-  querybook-redis:
-    image: redis:5.0.9
-    container_name: querybook-redis
-    hostname: querybook-redis
-    labels:
-      com.platys.name: redis
-      com.platys.description: Key-Value Store
-    volumes:
-      - ./data-transfer:/data-transfer
-    command: [redis-server, --appendonly, yes]
-    restart: unless-stopped
-  querybook-mysql:
-    image: mysql:8.0
-    container_name: querybook-mysql
-    hostname: querybook-mysql
-    labels:
-      com.platys.name: mysql
-      com.platys.description: Relational Database
-    environment:
-      MYSQL_HOST: querybook-mysql:3306
-      MYSQL_DATABASE: querybook2
-      MYSQL_USER: test
-      MYSQL_PASSWORD: passw0rd
-      # Password for root access
-      MYSQL_ROOT_PASSWORD: hunter2
-    volumes:
-      - ./data-transfer:/data-transfer
-    command: [--character-set-server=utf8mb4, --collation-server=utf8mb4_unicode_ci]
-    restart: unless-stopped
-  querybook-elasticsearch:
-    image: docker.elastic.co/elasticsearch/elasticsearch:7.16.2
-    container_name: querybook-elasticsearch
-    hostname: querybook-elasticsearch
-    labels:
-      com.platys.name: elasticsearch
-      com.platys.description: Search-Engine Datastore
-    environment:
-      cluster.name: docker-cluster
-      bootstrap.memory_lock: 'true'
-      discovery.type: single-node
-      ES_JAVA_OPTS: -Xms750m -Xmx750m
-      cluster.routing.allocation.disk.threshold_enabled: 'true'
-      cluster.routing.allocation.disk.watermark.low: 2gb
-      cluster.routing.allocation.disk.watermark.high: 1gb
-      cluster.routing.allocation.disk.watermark.flood_stage: 512mb
+      SQLPAD_ADMIN: admin@sqlpad.com
+      SQLPAD_ADMIN_PASSWORD: admin
+      SQLPAD_APP_LOG_LEVEL: debug
+      SQLPAD_WEB_LOG_LEVEL: warn
+      SQLPAD_SEED_DATA_PATH: /etc/sqlpad/seed-data
+      SQLPAD_CONNECTIONS__pgdemo__name: Postgres demo
+      SQLPAD_CONNECTIONS__pgdemo__driver: postgres
+      SQLPAD_CONNECTIONS__pgdemo__host: postgres
+      SQLPAD_CONNECTIONS__pgdemo__database: demodb
+      SQLPAD_CONNECTIONS__pgdemo__username: demo
+      SQLPAD_CONNECTIONS__pgdemo__password: abc123!
+      SQLPAD_CONNECTIONS__pgdemo__multiStatementTransactionEnabled: 'true'
+      SQLPAD_CONNECTIONS__pgdemo__idleTimeoutSeconds: 86400
     volumes:
       - ./data-transfer:/data-transfer
     restart: unless-stopped
