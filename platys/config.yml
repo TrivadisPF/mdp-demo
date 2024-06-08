@@ -1636,7 +1636,7 @@
       #
       # ===== SQLPad UI ========
       #
-      SQLPAD_enable: true
+      SQLPAD_enable: false
       #
       # ===== SQLChat UI ========
       #
@@ -2134,7 +2134,7 @@
       #
       # ===== Portainer Container UI ========
       #
-      PORTAINER_enable: false
+      PORTAINER_enable: true
       #
       # ===== Docker Exec Web Console ========
       #
