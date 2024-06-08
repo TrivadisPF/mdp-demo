@@ -20,3 +20,4 @@ mkdir -p $DATAPLATFORM_HOME/data-transfer/landing-area/admission
 
 echo "copy airflow pipelines"
 cp -rv ./airflow/*.py $DATAPLATFORM_HOME/scripts/airflow/dags
+
