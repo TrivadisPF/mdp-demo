@@ -372,8 +372,8 @@ services:
       SPARK_DEFAULTS_CONF_spark_executor_extraJavaOptions:
       SPARK_DEFAULTS_CONF_spark_cores_max: 2
       SPARK_DEFAULTS_CONF_spark_executor_memory: 2048mb
-#      SPARK_DEFAULTS_CONF_spark_sql_extensions: __omit_place_holder__30d39e653086496ffbfb6cb28c8de3f2bb384427
-#      SPARK_DEFAULTS_CONF_spark_sql_catalog_spark__catalog: __omit_place_holder__30d39e653086496ffbfb6cb28c8de3f2bb384427
+#      SPARK_DEFAULTS_CONF_spark_sql_extensions: __omit_place_holder__fd45a035bdeae5e5fd25b2892408ffc81960d2c3
+#      SPARK_DEFAULTS_CONF_spark_sql_catalog_spark__catalog: __omit_place_holder__fd45a035bdeae5e5fd25b2892408ffc81960d2c3
       SPARK_DEFAULTS_CONF_spark_sql_catalog_spark__catalog: org.apache.spark.sql.delta.catalog.DeltaCatalog
       SPARK_DEFAULTS_CONF_spark_sql_extensions: io.delta.sql.DeltaSparkSessionExtension
       SPARK_DEFAULTS_CONF_spark_sql_legacy_allowNonEmptyLocationInCTAS: 'true'
@@ -741,6 +741,8 @@ services:
     ports:
       - 28139:8080
     command: webserver
+    group_add:
+      - $DOCKER_GROUP
     environment:
       - AIRFLOW__CORE__EXECUTOR=LocalExecutor
       - AIRFLOW__DATABASE__SQL_ALCHEMY_CONN=postgresql+psycopg2://airflow:abc123!@airflow-db/airflowdb
@@ -768,6 +770,7 @@ services:
       - ./plugins/airflow/:/opt/airflow/plugins:Z
       - ./scripts/docker/wait-for-it.sh:/usr/src/app/wait-for-it.sh
       - spark-vol:/opt/spark:RO
+      - /var/run/docker.sock:/var/run/docker.sock
     user: ${AIRFLOW_UID:-50000}:${AIRFLOW_GID:-0}
     restart: unless-stopped
   airflow-scheduler:
@@ -783,6 +786,8 @@ services:
       - |
         /usr/src/app/wait-for-it.sh -t 180 airflow-db:5432
         airflow scheduler
+    group_add:
+      - $DOCKER_GROUP
     environment:
       - AIRFLOW__CORE__EXECUTOR=LocalExecutor
       - AIRFLOW__DATABASE__SQL_ALCHEMY_CONN=postgresql+psycopg2://airflow:abc123!@airflow-db/airflowdb
@@ -810,6 +815,7 @@ services:
       - ./plugins/airflow/:/opt/airflow/plugins:Z
       - ./scripts/docker/wait-for-it.sh:/usr/src/app/wait-for-it.sh
       - spark-vol:/opt/spark:RO
+      - /var/run/docker.sock:/var/run/docker.sock
     user: ${AIRFLOW_UID:-50000}:${AIRFLOW_GID:-0}
     restart: unless-stopped
   airflow-db:
