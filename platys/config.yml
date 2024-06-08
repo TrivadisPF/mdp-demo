@@ -134,7 +134,7 @@
       #
       # ===== Confluent ksqlDB ========
       #
-      KSQLDB_enable: false
+      KSQLDB_enable: true
       # either 'cp' or 'oss'
       KSQLDB_edition: 'oss'
       KSQLDB_nodes: 1
@@ -828,7 +828,7 @@
       #
       # ===== Apache Airflow  ========
       #
-      AIRFLOW_enable: false
+      AIRFLOW_enable: true
       # "celery" or "sequential" or "local"
       AIRFLOW_executor: local
       AIRFLOW_workers: 1

@@ -7,6 +7,7 @@ networks:
   default:
     name: mdp-demo-platform
 # enforce some dependencies
+# enforce some dependencies
 services:
   #  ================================== Zookeeper ========================================== #
   zookeeper-1:
@@ -164,6 +165,94 @@ services:
       interval: 10s
       retries: 25
       start_period: 20s
+  #  ================================== ksqlDB ========================================== #
+  ksqldb-server-1:
+    image: confluentinc/ksqldb-server:0.29.0
+    hostname: ksqldb-server-1
+    container_name: ksqldb-server-1
+    labels:
+      com.platys.name: ksqldb
+      com.platys.description: ksqlDB Streaming Database - Node 1
+      com.platys.restapi.title: ksqlDB Server REST API
+      com.platys.restapi.url: http://dataplatform:8088
+    ports:
+      - 8088:8088
+      - 1095:1095
+    environment:
+      KSQL_LOG4J_OPTS: -Dlog4j.configuration=file:/tmp/log4j.properties
+      KSQL_LOG4J_LOGGERS: org.apache.kafka.connect.runtime.rest=WARN,org.reflections=ERROR
+      KSQL_LOG4J_PROCESSING_LOG_TOPIC: ksql_processing_log
+      KSQL_LOG4J_PROCESSING_LOG_BROKERLIST: kafka-1:19092,kafka-2:19093,kafka-3:19094
+      KSQL_KSQL_LOGGING_PROCESSING_TOPIC_NAME: ksql_processing_log
+      KSQL_KSQL_LOGGING_PROCESSING_TOPIC_REPLICATION_FACTOR: 1
+      KSQL_KSQL_LOGGING_PROCESSING_ROWS_INCLUDE: 'true'
+      KSQL_KSQL_LOGGING_PROCESSING_STREAM_AUTO_CREATE: 'true'
+      KSQL_KSQL_LOGGING_PROCESSING_TOPIC_AUTO_CREATE: 'true'
+      # For Demo purposes: improve resource utilization and avoid timeouts
+      KSQL_KSQL_STREAMS_NUM_STREAM_THREADS: 1
+      KSQL_PRODUCER_ENABLE_IDEMPOTENCE: 'true'
+      KSQL_KSQL_PERSISTENCE_DEFAULT_FORMAT_KEY: KAFKA
+      KSQL_APPLICATION_ID: ksqldb-cluster
+      KSQL_KSQL_SERVICE_ID: ksqldb-cluster
+      KSQL_HOST_NAME: ksqldb-server-1
+      KSQL_LISTENERS: http://0.0.0.0:8088
+      KSQL_BOOTSTRAP_SERVERS: kafka-1:19092,kafka-2:19093,kafka-3:19094
+      KSQL_CACHE_MAX_BYTES_BUFFERING: 0
+      KSQL_RESPONSE_HTTP_HEADERS_CONFIG: ''
+      KSQL_SECURITY_PROTOCOL: PLAINTEXT
+      KSQL_KSQL_SCHEMA_REGISTRY_URL: http://schema-registry-1:8081
+      KSQL_KSQL_INTERNAL_TOPIC_REPLICAS: 1
+      KSQL_KSQL_SINK_REPLICAS: 1
+      KSQL_KSQL_STREAMS_REPLICATION_FACTOR: 1
+      KSQL_KSQL_QUERY_PULL_METRICS_ENABLED: 'true'
+      KSQL_KSQL_HIDDEN_TOPICS: ^_.*,default_ksql_processing_log
+      KSQL_KSQL_SUPPRESS_ENABLED: 'False'
+      KSQL_KSQL_SUPPRESS_BUFFER_SIZE_BYTES: '-1'
+      KSQL_KSQL_QUERY_PULL_TABLE_SCAN_ENABLED: 'False'
+      KSQL_CONFIG_DIR: /etc/ksqldb
+      KSQL_KSQL_EXTENSION_DIR: /etc/ksqldb/ext/
+      KSQL_JMX_OPTS: -Djava.rmi.server.hostname=localhost -Dcom.sun.management.jmxremote -Dcom.sun.management.jmxremote.port=1095 -Dcom.sun.management.jmxremote.authenticate=false -Dcom.sun.management.jmxremote.ssl=false -Dcom.sun.management.jmxremote.rmi.port=1095
+    volumes:
+      - ./data-transfer:/data-transfer
+      - ./plugins/ksqldb:/etc/ksqldb/ext
+      - ./conf/ksqldb/etc/log4j.properties:/tmp/log4j.properties.templ
+      - ./plugins/kafka-connect/connectors:/etc/kafka-connect/addl-plugins
+      - ./plugins/kafka-connect/jars:/etc/kafka-connect/jars
+      - ./plugins/opentelemetry/agents:/otel
+    command:
+      # In the command section, $ are replaced with $$ to avoid the error 'Invalid interpolation format for "command" option'
+      - bash
+      - -c
+      - |
+        python -c 'import os,sys; sys.stdout.write(os.path.expandvars(sys.stdin.read()))' < /tmp/log4j.properties.templ > /tmp/log4j.properties
+        #
+        echo "Launching ksqlDB server"
+        #/etc/confluent/docker/run &
+        /usr/bin/docker/run &
+        #
+        sleep infinity
+    restart: unless-stopped
+    healthcheck:
+      start_period: 10s
+      interval: 10s
+      retries: 20
+      test: curl --user ksqlDBUser:ksqlDBUser -fail --silent http://ksqldb-server-1:8088/info | grep RUNNING 1>/dev/null || exit 1
+  # Access the cli by running:
+  # > docker exec -it ksqldb-cli ksql http://ksqldb-server-1:8088
+  ksqldb-cli:
+    image: confluentinc/ksqldb-cli:0.29.0
+    container_name: ksqldb-cli
+    hostname: ksqldb-cli
+    labels:
+      com.platys.name: ksqldb-cli
+      com.platys.description: ksqlDB Command Line Utility
+    depends_on:
+      - ksqldb-server-1
+    volumes:
+      - ./data-transfer:/data-transfer
+    entrypoint: /bin/sh
+    tty: true
+    restart: unless-stopped
   #  ================================== Confluent Schema Registry ========================================== #
   schema-registry-1:
     image: confluentinc/cp-schema-registry:7.6.0
@@ -237,6 +326,9 @@ services:
               schema-registry:
                 url: "http://schema-registry-1:8081"
                 type: "confluent"
+              ksqldb:
+                - name: "ksqldb"
+                  url: "http://ksqldb-server-1:8088"
     volumes:
       - ./data-transfer:/data-transfer
     restart: unless-stopped
@@ -280,8 +372,8 @@ services:
       SPARK_DEFAULTS_CONF_spark_executor_extraJavaOptions:
       SPARK_DEFAULTS_CONF_spark_cores_max: 2
       SPARK_DEFAULTS_CONF_spark_executor_memory: 2048mb
-#      SPARK_DEFAULTS_CONF_spark_sql_extensions: __omit_place_holder__b68fe142efcb84b78dc4c9064291ff8071b1a13d
-#      SPARK_DEFAULTS_CONF_spark_sql_catalog_spark__catalog: __omit_place_holder__b68fe142efcb84b78dc4c9064291ff8071b1a13d
+#      SPARK_DEFAULTS_CONF_spark_sql_extensions: __omit_place_holder__426f9da62022189e7e7df3d34615438515ada2f3
+#      SPARK_DEFAULTS_CONF_spark_sql_catalog_spark__catalog: __omit_place_holder__426f9da62022189e7e7df3d34615438515ada2f3
       SPARK_DEFAULTS_CONF_spark_sql_catalog_spark__catalog: org.apache.spark.sql.delta.catalog.DeltaCatalog
       SPARK_DEFAULTS_CONF_spark_sql_extensions: io.delta.sql.DeltaSparkSessionExtension
       SPARK_DEFAULTS_CONF_spark_sql_legacy_allowNonEmptyLocationInCTAS: 'true'
@@ -634,6 +726,194 @@ services:
         printenv | sed 's|=.*||' | while read envvarname; do sed -i "s|\$${$$envvarname}|$${!envvarname}|" /opt/nifi-registry/nifi-registry-current/conf/logback.xml; done
         ../scripts/start.sh
     restart: unless-stopped
+#  ================================== Airflow ========================================== #
+  airflow:
+    image: apache/airflow:2.7.3-python3.10
+    container_name: airflow
+    hostname: airflow
+    labels:
+      com.platys.name: airflow
+      com.platys.description: Job Orchestration & Scheduler
+      com.platys.webui.title: Airflow UI
+      com.platys.webui.url: http://dataplatform:28139
+      com.platys.restapi.title: Airflow REST API (dags as sample)
+      com.platys.restapi.url: http://dataplatform:28139/api/v1/dags
+    ports:
+      - 28139:8080
+    command: webserver
+    environment:
+      - AIRFLOW__CORE__EXECUTOR=LocalExecutor
+      - AIRFLOW__DATABASE__SQL_ALCHEMY_CONN=postgresql+psycopg2://airflow:abc123!@airflow-db/airflowdb
+      # For backward compatibility, with Airflow <2.3
+      - AIRFLOW__CORE__SQL_ALCHEMY_CONN=postgresql+psycopg2://airflow:abc123!@airflow-db/airflowdb
+      - AIRFLOW__CELERY__RESULT_BACKEND=db+postgresql://airflow:abc123!@airflow-db/airflowdb
+      - AIRFLOW__CELERY__BROKER_URL=redis://:@airflow-redis:6379/0
+      - AIRFLOW__CORE__FERNET_KEY= ''
+      - AIRFLOW__WEBSERVER__SECRET_KEY=mdpDemo2024!
+      - AIRFLOW__CORE__DAGS_ARE_PAUSED_AT_CREATION=True
+      - AIRFLOW__CORE__LOAD_EXAMPLES=False
+      - AIRFLOW__API__AUTH_BACKENDS=airflow.api.auth.backend.session
+      - _PIP_ADDITIONAL_REQUIREMENTS=
+      - AIRFLOW__SCHEDULER__DAG_DIR_LIST_INTERVAL=300
+      - AIRFLOW__WEBSERVER__EXPOSE_CONFIG=True
+      - SPARK_HOME=/opt/spark
+      - AIRFLOW_VAR_S3_ENDPOINT=http://minio-1:9000
+      - AIRFLOW_VAR_S3_ACCESS_KEY=minio
+      - AIRFLOW_VAR_S3_SECRET_ACCESS_KEY=mdpDemo2024!
+      - AIRFLOW_VAR_S3_PATH_STYLE_ACCESS='true'
+    volumes:
+      - ./data-transfer:/data-transfer
+      - ./scripts/airflow/dags:/opt/airflow/dags:Z
+      - ./plugins/airflow/:/opt/airflow/plugins:Z
+      - ./scripts/docker/wait-for-it.sh:/usr/src/app/wait-for-it.sh
+      - spark-vol:/opt/spark:RO
+    user: ${AIRFLOW_UID:-50000}:${AIRFLOW_GID:-0}
+    restart: unless-stopped
+  airflow-scheduler:
+    image: apache/airflow:2.7.3-python3.10
+    container_name: airflow-scheduler
+    hostname: airflow-scheduler
+    labels:
+      com.platys.name: airflow
+      com.platys.description: Job Orchestration & Scheduler
+    command:
+      - bash
+      - -c
+      - |
+        /usr/src/app/wait-for-it.sh -t 180 airflow-db:5432
+        airflow scheduler
+    environment:
+      - AIRFLOW__CORE__EXECUTOR=LocalExecutor
+      - AIRFLOW__DATABASE__SQL_ALCHEMY_CONN=postgresql+psycopg2://airflow:abc123!@airflow-db/airflowdb
+      # For backward compatibility, with Airflow <2.3
+      - AIRFLOW__CORE__SQL_ALCHEMY_CONN=postgresql+psycopg2://airflow:abc123!@airflow-db/airflowdb
+      - AIRFLOW__CELERY__RESULT_BACKEND=db+postgresql://airflow:abc123!@airflow-db/airflowdb
+      - AIRFLOW__CELERY__BROKER_URL=redis://:@airflow-redis:6379/0
+      - AIRFLOW__CORE__FERNET_KEY= ''
+      - AIRFLOW__WEBSERVER__SECRET_KEY=mdpDemo2024!
+      - AIRFLOW__CORE__DAGS_ARE_PAUSED_AT_CREATION=True
+      - AIRFLOW__CORE__LOAD_EXAMPLES=False
+      - AIRFLOW__API__AUTH_BACKENDS=airflow.api.auth.backend.session
+      - _PIP_ADDITIONAL_REQUIREMENTS=
+      - AIRFLOW__SCHEDULER__DAG_DIR_LIST_INTERVAL=300
+      - AIRFLOW__WEBSERVER__EXPOSE_CONFIG=True
+      - SPARK_HOME=/opt/spark
+      - AIRFLOW_VAR_S3_ENDPOINT=http://minio-1:9000
+      - AIRFLOW_VAR_S3_ACCESS_KEY=minio
+      - AIRFLOW_VAR_S3_SECRET_ACCESS_KEY=mdpDemo2024!
+      - AIRFLOW_VAR_S3_PATH_STYLE_ACCESS='true'
+    volumes:
+      - ./data-transfer:/data-transfer
+      - ./scripts/airflow/dags:/opt/airflow/dags:Z
+      - ./plugins/airflow/:/opt/airflow/plugins:Z
+      - ./scripts/docker/wait-for-it.sh:/usr/src/app/wait-for-it.sh
+      - spark-vol:/opt/spark:RO
+    user: ${AIRFLOW_UID:-50000}:${AIRFLOW_GID:-0}
+    restart: unless-stopped
+  airflow-db:
+    image: postgres:13
+    container_name: airflow-db
+    hostname: airflow-db
+    labels:
+      com.platys.name: airflow
+      com.platys.description: Job Orchestration & Scheduler
+    environment:
+      - POSTGRES_DB=airflowdb
+      - POSTGRES_USER=airflow
+      - POSTGRES_PASSWORD=abc123!
+    volumes:
+      - ./data-transfer:/data-transfer
+    restart: unless-stopped
+  airflow-init:
+    image: apache/airflow:2.7.3-python3.10
+    container_name: airflow-init
+    hostname: airflow-init
+    entrypoint: /bin/bash
+    # yamllint disable rule:line-length
+    command:
+      - -c
+      - |
+        function ver() {
+          printf "%04d%04d%04d%04d" $${1//./ }
+        }
+        airflow_version=$$(AIRFLOW__LOGGING__LOGGING_LEVEL=INFO && gosu airflow airflow version)
+        airflow_version_comparable=$$(ver $${airflow_version})
+        min_airflow_version=2.2.0
+        min_airflow_version_comparable=$$(ver $${min_airflow_version})
+        if (( airflow_version_comparable < min_airflow_version_comparable )); then
+          echo
+          echo -e "\033[1;31mERROR!!!: Too old Airflow version $${airflow_version}!\e[0m"
+          echo "The minimum Airflow version supported: $${min_airflow_version}. Only use this or higher!"
+          echo
+          exit 1
+        fi
+        if [[ -z "${AIRFLOW_UID}" ]]; then
+          echo
+          echo -e "\033[1;33mWARNING!!!: AIRFLOW_UID not set!\e[0m"
+          echo "If you are on Linux, you SHOULD follow the instructions below to set "
+          echo "AIRFLOW_UID environment variable, otherwise files will be owned by root."
+          echo "For other operating systems you can get rid of the warning with manually created .env file:"
+          echo "    See: https://airflow.apache.org/docs/apache-airflow/stable/howto/docker-compose/index.html#setting-the-right-airflow-user"
+          echo
+        fi
+        one_meg=1048576
+        mem_available=$$(($$(getconf _PHYS_PAGES) * $$(getconf PAGE_SIZE) / one_meg))
+        cpus_available=$$(grep -cE 'cpu[0-9]+' /proc/stat)
+        disk_available=$$(df / | tail -1 | awk '{print $$4}')
+        warning_resources="false"
+        if (( mem_available < 4000 )) ; then
+          echo
+          echo -e "\033[1;33mWARNING!!!: Not enough memory available for Docker.\e[0m"
+          echo "At least 4GB of memory required. You have $$(numfmt --to iec $$((mem_available * one_meg)))"
+          echo
+          warning_resources="true"
+        fi
+        if (( cpus_available < 2 )); then
+          echo
+          echo -e "\033[1;33mWARNING!!!: Not enough CPUS available for Docker.\e[0m"
+          echo "At least 2 CPUs recommended. You have $${cpus_available}"
+          echo
+          warning_resources="true"
+        fi
+        if (( disk_available < one_meg * 10 )); then
+          echo
+          echo -e "\033[1;33mWARNING!!!: Not enough Disk space available for Docker.\e[0m"
+          echo "At least 10 GBs recommended. You have $$(numfmt --to iec $$((disk_available * 1024 )))"
+          echo
+          warning_resources="true"
+        fi
+        if [[ $${warning_resources} == "true" ]]; then
+          echo
+          echo -e "\033[1;33mWARNING!!!: You have not enough resources to run Airflow (see above)!\e[0m"
+          echo "Please follow the instructions to increase amount of resources available:"
+          echo "   https://airflow.apache.org/docs/apache-airflow/stable/howto/docker-compose/index.html#before-you-begin"
+          echo
+        fi
+        exec /entrypoint airflow version
+    # yamllint enable rule:line-length
+    environment:
+      - AIRFLOW__CORE__EXECUTOR=LocalExecutor
+      - AIRFLOW__DATABASE__SQL_ALCHEMY_CONN=postgresql+psycopg2://airflow:abc123!@airflow-db/airflowdb
+      # For backward compatibility, with Airflow <2.3
+      - AIRFLOW__CORE__SQL_ALCHEMY_CONN=postgresql+psycopg2://airflow:abc123!@airflow-db/airflowdb
+      - AIRFLOW__CELERY__RESULT_BACKEND=db+postgresql://airflow:abc123!@airflow-db/airflowdb
+      - AIRFLOW__CELERY__BROKER_URL=redis://:@airflow-redis:6379/0
+      - AIRFLOW__CORE__FERNET_KEY= ''
+      - AIRFLOW__WEBSERVER__SECRET_KEY=mdpDemo2024!
+      - AIRFLOW__CORE__DAGS_ARE_PAUSED_AT_CREATION=True
+      - AIRFLOW__CORE__LOAD_EXAMPLES=False
+      - AIRFLOW__API__AUTH_BACKENDS=airflow.api.auth.backend.session
+      - _PIP_ADDITIONAL_REQUIREMENTS=
+      - AIRFLOW__SCHEDULER__DAG_DIR_LIST_INTERVAL=300
+      - AIRFLOW__WEBSERVER__EXPOSE_CONFIG=True
+      - _AIRFLOW_DB_UPGRADE=True
+      - _AIRFLOW_WWW_USER_CREATE=True
+      - _AIRFLOW_WWW_USER_USERNAME=airflow
+      - _AIRFLOW_WWW_USER_PASSWORD=mdpDemo2024!
+    volumes:
+      - ./data-transfer:/data-transfer
+    user: 0:0
+    init: true
   #  ================================== Zeppelin ========================================== #
   zeppelin:
     image: trivadis/apache-zeppelin:0.10.1-spark3.2.4-hadoop3.3
