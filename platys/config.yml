@@ -2165,7 +2165,7 @@
       #
       # ===== Docker Registry ========
       #
-      DOCKER_REGISTRY_enable: false
+      DOCKER_REGISTRY_enable: true
       DOCKER_REGISTRY_volume_map_data: false
       DOCKER_REGISTRY_volume_map_custom_config: false
       #

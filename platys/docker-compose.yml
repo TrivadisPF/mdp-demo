@@ -372,8 +372,8 @@ services:
       SPARK_DEFAULTS_CONF_spark_executor_extraJavaOptions:
       SPARK_DEFAULTS_CONF_spark_cores_max: 2
       SPARK_DEFAULTS_CONF_spark_executor_memory: 2048mb
-#      SPARK_DEFAULTS_CONF_spark_sql_extensions: __omit_place_holder__426f9da62022189e7e7df3d34615438515ada2f3
-#      SPARK_DEFAULTS_CONF_spark_sql_catalog_spark__catalog: __omit_place_holder__426f9da62022189e7e7df3d34615438515ada2f3
+#      SPARK_DEFAULTS_CONF_spark_sql_extensions: __omit_place_holder__7ed15746ec30979f1e813cd9b82132fc824651a9
+#      SPARK_DEFAULTS_CONF_spark_sql_catalog_spark__catalog: __omit_place_holder__7ed15746ec30979f1e813cd9b82132fc824651a9
       SPARK_DEFAULTS_CONF_spark_sql_catalog_spark__catalog: org.apache.spark.sql.delta.catalog.DeltaCatalog
       SPARK_DEFAULTS_CONF_spark_sql_extensions: io.delta.sql.DeltaSparkSessionExtension
       SPARK_DEFAULTS_CONF_spark_sql_legacy_allowNonEmptyLocationInCTAS: 'true'
@@ -1299,6 +1299,54 @@ services:
     cap_add:
       - IPC_LOCK
     command: vault server -dev
+  #  ================================== Docker Registry ========================================== #
+  docker-registry:
+    image: registry:2
+    container_name: docker-registry
+    hostname: docker-registry
+    labels:
+      com.platys.name: docker-registry
+      com.platys.description: Docker Registry
+      com.platys.restapi.title: Docker Registry REST API
+      com.platys.restapi.url: http://dataplatform:5020/v2
+    ports:
+      - 5020:5000
+    environment:
+      REGISTRY_STORAGE_FILESYSTEM_ROOTDIRECTORY: /var/lib/registry
+      REGISTRY_HTTP_ADDR: 0.0.0.0:5000
+      REGISTRY_HTTP_HEADERS_Access-Control-Allow-Origin: '["http://${PUBLIC_IP}:28307"]'
+      REGISTRY_HTTP_HEADERS_Access-Control-Allow-Methods: '[HEAD,GET,OPTIONS,DELETE]'
+      REGISTRY_HTTP_HEADERS_Access-Control-Allow-Credentials: '[true]'
+      REGISTRY_HTTP_HEADERS_Access-Control-Allow-Headers: '[Authorization,Accept,Cache-Control]'
+      REGISTRY_HTTP_HEADERS_Access-Control-Expose-Headers: '[Docker-Content-Digest]'
+      REGISTRY_STORAGE_DELETE_ENABLED: 'true'
+    volumes:
+      - ./data-transfer:/data-transfer
+    restart: unless-stopped
+  docker-registry-ui:
+    image: joxit/docker-registry-ui:latest
+    container_name: docker-registry-ui
+    hostname: docker-registry-ui
+    labels:
+      com.platys.name: docker-registry-ui
+      com.platys.description: Docker Registry
+      com.platys.webui.title: Docker Registry UI
+      com.platys.webui.url: http://dataplatform:28307
+    ports:
+      - 28307:80
+    depends_on:
+      - docker-registry
+    environment:
+      SINGLE_REGISTRY: true
+      REGISTRY_TITLE: Private Docker Registry
+      REGISTRY_URL: http://${PUBLIC_IP}:5020
+      DELETE_IMAGES: true
+      SHOW_CONTENT_DIGEST: true
+      REGISTRY_SECURED: false
+      CATALOG_ELEMENTS_LIMIT: 1000
+    volumes:
+      - ./data-transfer:/data-transfer
+    restart: unless-stopped
   #  ================================== Markdown Madness Server ========================================== #
   markdown-madness:
     image: dannyben/madness:latest
