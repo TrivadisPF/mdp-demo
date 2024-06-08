@@ -41,7 +41,7 @@ def run_dbt_pipeline():
 
   branch_all = DockerOperator(
         task_id='run_for_all',
-        image=eadpDockerRegistry + '/mdp/dbt-demo-better-pipeline:1.8.0',
+        image=eadpDockerRegistry + '/mdp-demo/dbt-demo-better-pipeline:1.8.0',
         container_name='dbt_demo_better_pipeline_' + uuid.uuid4().hex,
         api_version='auto',
         force_pull=True,
@@ -60,7 +60,7 @@ def run_dbt_pipeline():
 
   branch_single_source = DockerOperator(
         task_id='run_for_single_source',
-        image=eadpDockerRegistry + '/eadp/dbt-demo-better-pipeline:1.8.0',
+        image=eadpDockerRegistry + '/mdp-demo/dbt-demo-better-pipeline:1.8.0',
         container_name='dbt_demo_better_pipeline_' + uuid.uuid4().hex,
         api_version='auto',
         force_pull=True,
