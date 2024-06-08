@@ -1647,7 +1647,7 @@
       #
       # ===== Querybook ========
       #
-      QUERYBOOK_enable: false
+      QUERYBOOK_enable: true
       #
       # ===== NocoDB UI ========
       #
