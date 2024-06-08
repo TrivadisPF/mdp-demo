@@ -2134,7 +2134,7 @@
       #
       # ===== Portainer Container UI ========
       #
-      PORTAINER_enable: true
+      PORTAINER_enable: false
       #
       # ===== Docker Exec Web Console ========
       #

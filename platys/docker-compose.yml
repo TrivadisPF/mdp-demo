@@ -280,8 +280,8 @@ services:
       SPARK_DEFAULTS_CONF_spark_executor_extraJavaOptions:
       SPARK_DEFAULTS_CONF_spark_cores_max: 2
       SPARK_DEFAULTS_CONF_spark_executor_memory: 2048mb
-#      SPARK_DEFAULTS_CONF_spark_sql_extensions: __omit_place_holder__c2ecdff169874ee3efecfaac340b96ab51a8cce6
-#      SPARK_DEFAULTS_CONF_spark_sql_catalog_spark__catalog: __omit_place_holder__c2ecdff169874ee3efecfaac340b96ab51a8cce6
+#      SPARK_DEFAULTS_CONF_spark_sql_extensions: __omit_place_holder__707062fa65abea6681344ecd32f4f9674cbe7314
+#      SPARK_DEFAULTS_CONF_spark_sql_catalog_spark__catalog: __omit_place_holder__707062fa65abea6681344ecd32f4f9674cbe7314
       SPARK_DEFAULTS_CONF_spark_sql_catalog_spark__catalog: org.apache.spark.sql.delta.catalog.DeltaCatalog
       SPARK_DEFAULTS_CONF_spark_sql_extensions: io.delta.sql.DeltaSparkSessionExtension
       SPARK_DEFAULTS_CONF_spark_sql_legacy_allowNonEmptyLocationInCTAS: 'true'
@@ -1020,23 +1020,6 @@ services:
       - IPC_LOCK
     command: vault server -dev
   #  ================================== Portainer ========================================== #
-  portainer:
-    image: portainer/portainer-ce:alpine-sts
-    container_name: portainer
-    hostname: portainer
-    labels:
-      com.platys.name: portainer
-      com.platys.description: Easy Docker and Kubernetes management
-      com.platys.webui.title: Portainer UI
-      com.platys.webui.url: http://dataplatform:28137
-    ports:
-      - 28137:9000
-    volumes:
-      - ./data-transfer:/data-transfer
-      - /var/run/docker.sock:/var/run/docker.sock
-    command: --admin-password '$$2y$$05$$Qf7g15yr4ohg8UyxBkVR1OPXVigCcldXoCxS.HgR9xzSALeiv4H.K'
-    restart: unless-stopped
-  #  ================================== Portainer ========================================== #
   docker-exec-webconsole:
     image: bitbull/docker-exec-web-console:latest
     container_name: docker-exec-webconsole
@@ -1087,6 +1070,7 @@ services:
       - 80:3000
     volumes:
       - ./artefacts:/docs
+      - .main.css:/docs/css/main.css
       - ./conf/markdown-viewer/markdown-madness.yml:/docs/.madness.yml
       - ./data-transfer:/data-transfer
     command: server
