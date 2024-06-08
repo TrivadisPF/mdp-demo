@@ -17,4 +17,6 @@ cp -rv *.nar $DATAPLATFORM_HOME/plugins/nifi/nars/
 rm *.nar
 
 mkdir -p $DATAPLATFORM_HOME/data-transfer/landing-area/admission
-                              
+
+echo "copy airflow pipelines"
+cp -rv ./airflow/*.py $DATAPLATFORM_HOME/scripts/airflow/dags
