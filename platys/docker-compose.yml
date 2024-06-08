@@ -372,8 +372,8 @@ services:
       SPARK_DEFAULTS_CONF_spark_executor_extraJavaOptions:
       SPARK_DEFAULTS_CONF_spark_cores_max: 2
       SPARK_DEFAULTS_CONF_spark_executor_memory: 2048mb
-#      SPARK_DEFAULTS_CONF_spark_sql_extensions: __omit_place_holder__4f9b31bec05d48682c86ff996718f2b96fcc0440
-#      SPARK_DEFAULTS_CONF_spark_sql_catalog_spark__catalog: __omit_place_holder__4f9b31bec05d48682c86ff996718f2b96fcc0440
+#      SPARK_DEFAULTS_CONF_spark_sql_extensions: __omit_place_holder__30d39e653086496ffbfb6cb28c8de3f2bb384427
+#      SPARK_DEFAULTS_CONF_spark_sql_catalog_spark__catalog: __omit_place_holder__30d39e653086496ffbfb6cb28c8de3f2bb384427
       SPARK_DEFAULTS_CONF_spark_sql_catalog_spark__catalog: org.apache.spark.sql.delta.catalog.DeltaCatalog
       SPARK_DEFAULTS_CONF_spark_sql_extensions: io.delta.sql.DeltaSparkSessionExtension
       SPARK_DEFAULTS_CONF_spark_sql_legacy_allowNonEmptyLocationInCTAS: 'true'
@@ -761,6 +761,7 @@ services:
       - AIRFLOW_VAR_S3_ACCESS_KEY=minio
       - AIRFLOW_VAR_S3_SECRET_ACCESS_KEY=mdpDemo2024!
       - AIRFLOW_VAR_S3_PATH_STYLE_ACCESS='true'
+      - AIRFLOW_VAR_MDP_DOCKER_REGISTRY=${MDP_DOCKER_REGISTRY}
     volumes:
       - ./data-transfer:/data-transfer
       - ./scripts/airflow/dags:/opt/airflow/dags:Z
@@ -802,6 +803,7 @@ services:
       - AIRFLOW_VAR_S3_ACCESS_KEY=minio
       - AIRFLOW_VAR_S3_SECRET_ACCESS_KEY=mdpDemo2024!
       - AIRFLOW_VAR_S3_PATH_STYLE_ACCESS='true'
+      - AIRFLOW_VAR_MDP_DOCKER_REGISTRY=${MDP_DOCKER_REGISTRY}
     volumes:
       - ./data-transfer:/data-transfer
       - ./scripts/airflow/dags:/opt/airflow/dags:Z
