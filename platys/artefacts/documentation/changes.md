@@ -22,6 +22,7 @@ The Modern Data Platform version 1.18.0 contains the following bug fixes and enh
  * Weaviate Verba
  * Unstructured API
  * gpt-researcher
+ * Docker Exec Web Console
 
 ### Version upgrades
 
@@ -61,13 +62,14 @@ The Modern Data Platform version 1.18.0 contains the following bug fixes and enh
  * Update `kibana` to `7.17.20` and `8.13.0`
  * Update `memcached` to `1.6.26`
  * Update `redis-stack` to `7.2.0-v10`
- * Update `flowise` to `1.6.5`
  * Update `stardog` to `latest`
  * Update `minio` to `RELEASE.2024-04-06T05-26-02Z`
  * Update `datahub` to `v0.13.2`
  * Update `risingwave` to `v1.8.2`
  * Update `portainer` to `alpine-sts`
- * Update `flowise` to `1.7.1`
+ * Update `flowise` to `1.8.1`
+ * Update `nifi` to `2.0.0-M3`
+ * Update `nifi` to `1.26.0`
 
 ### Breaking Changes
 

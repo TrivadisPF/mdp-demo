@@ -280,8 +280,8 @@ services:
       SPARK_DEFAULTS_CONF_spark_executor_extraJavaOptions:
       SPARK_DEFAULTS_CONF_spark_cores_max: 2
       SPARK_DEFAULTS_CONF_spark_executor_memory: 2048mb
-#      SPARK_DEFAULTS_CONF_spark_sql_extensions: __omit_place_holder__707062fa65abea6681344ecd32f4f9674cbe7314
-#      SPARK_DEFAULTS_CONF_spark_sql_catalog_spark__catalog: __omit_place_holder__707062fa65abea6681344ecd32f4f9674cbe7314
+#      SPARK_DEFAULTS_CONF_spark_sql_extensions: __omit_place_holder__b68fe142efcb84b78dc4c9064291ff8071b1a13d
+#      SPARK_DEFAULTS_CONF_spark_sql_catalog_spark__catalog: __omit_place_holder__b68fe142efcb84b78dc4c9064291ff8071b1a13d
       SPARK_DEFAULTS_CONF_spark_sql_catalog_spark__catalog: org.apache.spark.sql.delta.catalog.DeltaCatalog
       SPARK_DEFAULTS_CONF_spark_sql_extensions: io.delta.sql.DeltaSparkSessionExtension
       SPARK_DEFAULTS_CONF_spark_sql_legacy_allowNonEmptyLocationInCTAS: 'true'
@@ -1019,25 +1019,6 @@ services:
     cap_add:
       - IPC_LOCK
     command: vault server -dev
-  #  ================================== Portainer ========================================== #
-  docker-exec-webconsole:
-    image: bitbull/docker-exec-web-console:latest
-    container_name: docker-exec-webconsole
-    hostname: docker-exec-webconsole
-    labels:
-      com.platys.name: docker-exec-webconsole
-      com.platys.description: Docker Exec Web Console
-      com.platys.webui.title: Docker Exec Web Console
-      com.platys.webui.url: http://dataplatform:28375/mdp
-    ports:
-      - 28375:8888
-    environment:
-      DUMMY: 1
-      CONTEXT_PATH: /mdp
-    volumes:
-      - ./data-transfer:/data-transfer
-      - /var/run/docker.sock:/var/run/docker.sock
-    restart: unless-stopped
   #  ================================== Markdown Madness Server ========================================== #
   markdown-madness:
     image: dannyben/madness:latest
