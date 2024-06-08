@@ -1,0 +1,13 @@
+version: 2
+
+models:
+  - name: ref_vital_signs
+    meta:
+      business_owner: GuidoSchmutz
+      technical_owner: GuidoSchmutz
+      data_tier: Refined
+  - name: ref_vital_signs_temperature
+    meta:
+      business_owner: GuidoSchmutz
+      technical_owner: GuidoSchmutz
+      data_tier: Refined      

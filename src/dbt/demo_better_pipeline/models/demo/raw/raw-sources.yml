@@ -1,0 +1,12 @@
+version: 2
+
+sources:
+  - name: mdp_demo_better_db
+    config:
+      meta:
+        technical_owner: GuidoSchmutz
+        data_tier: Raw
+    tables:
+      - name: raw_vital_signs_t
+      - name: raw_patient_t
+

@@ -1,0 +1,8 @@
+version: 2
+
+models:
+  - name: prep_vital_signs
+    meta:
+      business_owner: GuidoSchmutz
+      technical_owner: GuidoSchmutz
+      data_tier: Prepared   
