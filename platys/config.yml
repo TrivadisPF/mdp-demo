@@ -1704,7 +1704,7 @@
       TRINO_event_listeners: ''
       TRINO_postgresql_database: 'demodb'
       TRINO_postgresql_user: 'demo'
-      TRINO_postgresql_password: 'mdpDmeo2024!'
+      TRINO_postgresql_password: 'mdpDemo2024!'
       TRINO_oracle_user: ''
       TRINO_oracle_password: ''
       TRINO_sqlserver_database: ''

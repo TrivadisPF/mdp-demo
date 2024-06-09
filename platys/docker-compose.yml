@@ -372,8 +372,8 @@ services:
       SPARK_DEFAULTS_CONF_spark_executor_extraJavaOptions:
       SPARK_DEFAULTS_CONF_spark_cores_max: 2
       SPARK_DEFAULTS_CONF_spark_executor_memory: 2048mb
-#      SPARK_DEFAULTS_CONF_spark_sql_extensions: __omit_place_holder__ca03e195349749e8e3dda8a0689ce0eeece1f4cc
-#      SPARK_DEFAULTS_CONF_spark_sql_catalog_spark__catalog: __omit_place_holder__ca03e195349749e8e3dda8a0689ce0eeece1f4cc
+#      SPARK_DEFAULTS_CONF_spark_sql_extensions: __omit_place_holder__892be690f627aa5f254b892a493da219f5639b07
+#      SPARK_DEFAULTS_CONF_spark_sql_catalog_spark__catalog: __omit_place_holder__892be690f627aa5f254b892a493da219f5639b07
       SPARK_DEFAULTS_CONF_spark_sql_catalog_spark__catalog: org.apache.spark.sql.delta.catalog.DeltaCatalog
       SPARK_DEFAULTS_CONF_spark_sql_extensions: io.delta.sql.DeltaSparkSessionExtension
       SPARK_DEFAULTS_CONF_spark_sql_legacy_allowNonEmptyLocationInCTAS: 'true'
@@ -1160,7 +1160,7 @@ services:
       HIVE_LEGACY_TRANSLATION: 'false'
       POSTGRESQL_DATABASE: demodb
       POSTGRESQL_USER: demo
-      POSTGRESQL_PASSWORD: mdpDmeo2024!
+      POSTGRESQL_PASSWORD: mdpDemo2024!
       REDIS_TABLE_NAMES: ''
       REDIS_NODES: redis-1:6379
       EVENT_LISTENER_CONFIG_FILES: ''
