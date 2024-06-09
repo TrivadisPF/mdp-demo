@@ -837,7 +837,7 @@
       AIRFLOW_fernet_key: ''
       AIRFLOW_secret_key: 'mdpDemo2024!'
       AIRFLOW_additional_requirements: ''
-      AIRFLOW_auth_backends: 'airflow.api.auth.backend.session'
+      AIRFLOW_auth_backends: 'airflow.api.auth.backend.basic_auth'
       AIRFLOW_volume_map_logs: false
       AIRFLOW_volume_map_docker_daemon: true
       AIRFLOW_provision_examples: false

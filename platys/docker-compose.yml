@@ -372,8 +372,8 @@ services:
       SPARK_DEFAULTS_CONF_spark_executor_extraJavaOptions:
       SPARK_DEFAULTS_CONF_spark_cores_max: 2
       SPARK_DEFAULTS_CONF_spark_executor_memory: 2048mb
-#      SPARK_DEFAULTS_CONF_spark_sql_extensions: __omit_place_holder__892be690f627aa5f254b892a493da219f5639b07
-#      SPARK_DEFAULTS_CONF_spark_sql_catalog_spark__catalog: __omit_place_holder__892be690f627aa5f254b892a493da219f5639b07
+#      SPARK_DEFAULTS_CONF_spark_sql_extensions: __omit_place_holder__aa4399dfb066199ec2bef0e66a0a93c98476b67a
+#      SPARK_DEFAULTS_CONF_spark_sql_catalog_spark__catalog: __omit_place_holder__aa4399dfb066199ec2bef0e66a0a93c98476b67a
       SPARK_DEFAULTS_CONF_spark_sql_catalog_spark__catalog: org.apache.spark.sql.delta.catalog.DeltaCatalog
       SPARK_DEFAULTS_CONF_spark_sql_extensions: io.delta.sql.DeltaSparkSessionExtension
       SPARK_DEFAULTS_CONF_spark_sql_legacy_allowNonEmptyLocationInCTAS: 'true'
@@ -754,7 +754,7 @@ services:
       - AIRFLOW__WEBSERVER__SECRET_KEY=mdpDemo2024!
       - AIRFLOW__CORE__DAGS_ARE_PAUSED_AT_CREATION=True
       - AIRFLOW__CORE__LOAD_EXAMPLES=False
-      - AIRFLOW__API__AUTH_BACKENDS=airflow.api.auth.backend.session
+      - AIRFLOW__API__AUTH_BACKENDS=airflow.api.auth.backend.basic_auth
       - _PIP_ADDITIONAL_REQUIREMENTS=
       - AIRFLOW__SCHEDULER__DAG_DIR_LIST_INTERVAL=60
       - AIRFLOW__WEBSERVER__EXPOSE_CONFIG=True
@@ -799,7 +799,7 @@ services:
       - AIRFLOW__WEBSERVER__SECRET_KEY=mdpDemo2024!
       - AIRFLOW__CORE__DAGS_ARE_PAUSED_AT_CREATION=True
       - AIRFLOW__CORE__LOAD_EXAMPLES=False
-      - AIRFLOW__API__AUTH_BACKENDS=airflow.api.auth.backend.session
+      - AIRFLOW__API__AUTH_BACKENDS=airflow.api.auth.backend.basic_auth
       - _PIP_ADDITIONAL_REQUIREMENTS=
       - AIRFLOW__SCHEDULER__DAG_DIR_LIST_INTERVAL=60
       - AIRFLOW__WEBSERVER__EXPOSE_CONFIG=True
@@ -910,7 +910,7 @@ services:
       - AIRFLOW__WEBSERVER__SECRET_KEY=mdpDemo2024!
       - AIRFLOW__CORE__DAGS_ARE_PAUSED_AT_CREATION=True
       - AIRFLOW__CORE__LOAD_EXAMPLES=False
-      - AIRFLOW__API__AUTH_BACKENDS=airflow.api.auth.backend.session
+      - AIRFLOW__API__AUTH_BACKENDS=airflow.api.auth.backend.basic_auth
       - _PIP_ADDITIONAL_REQUIREMENTS=
       - AIRFLOW__SCHEDULER__DAG_DIR_LIST_INTERVAL=60
       - AIRFLOW__WEBSERVER__EXPOSE_CONFIG=True
