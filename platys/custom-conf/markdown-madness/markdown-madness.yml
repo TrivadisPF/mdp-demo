@@ -16,13 +16,13 @@ bind: 0.0.0.0
 base_uri: ~
 
 # enable sidebar
-sidebar: true
+sidebar: false
 
 # add H1 title to files that do not have one
 auto_h1: true
 
 # append navigation to directory READMEs
-auto_nav: true
+auto_nav: false
 
 # replace <!-- TOC --> in any file with its internal table of contents
 # set to true to enable it with the default '## Table of Contents' caption,
