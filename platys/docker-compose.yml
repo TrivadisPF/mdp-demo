@@ -372,8 +372,8 @@ services:
       SPARK_DEFAULTS_CONF_spark_executor_extraJavaOptions:
       SPARK_DEFAULTS_CONF_spark_cores_max: 2
       SPARK_DEFAULTS_CONF_spark_executor_memory: 2048mb
-#      SPARK_DEFAULTS_CONF_spark_sql_extensions: __omit_place_holder__9c236add8c25df569cf1fec3ab6a05fdaf6ae2e2
-#      SPARK_DEFAULTS_CONF_spark_sql_catalog_spark__catalog: __omit_place_holder__9c236add8c25df569cf1fec3ab6a05fdaf6ae2e2
+#      SPARK_DEFAULTS_CONF_spark_sql_extensions: __omit_place_holder__f459837c427c389e051c2a7375cc159984f5b0e8
+#      SPARK_DEFAULTS_CONF_spark_sql_catalog_spark__catalog: __omit_place_holder__f459837c427c389e051c2a7375cc159984f5b0e8
       SPARK_DEFAULTS_CONF_spark_sql_catalog_spark__catalog: org.apache.spark.sql.delta.catalog.DeltaCatalog
       SPARK_DEFAULTS_CONF_spark_sql_extensions: io.delta.sql.DeltaSparkSessionExtension
       SPARK_DEFAULTS_CONF_spark_sql_legacy_allowNonEmptyLocationInCTAS: 'true'
@@ -1366,7 +1366,7 @@ services:
       com.platys.webui.title: Markdown Madness Server UI
       com.platys.webui.url: http://dataplatform:28312
     ports:
-      - 28312:3000
+      - 28312:28312
     volumes:
       - ./data-transfer:/data-transfer
       - ./data-transfer/docs:/docs

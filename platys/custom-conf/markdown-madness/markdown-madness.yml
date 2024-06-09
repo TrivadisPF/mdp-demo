@@ -6,7 +6,7 @@
 path: /docs
 
 # server port
-port: 3000
+port: 28312
 
 # server listen address
 bind: 0.0.0.0
