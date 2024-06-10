@@ -312,12 +312,12 @@
       AKHQ_show_all_consumer_groups: true
       AKHQ_show_last_record: false
       AKHQ_read_only_mode: false
-      AKHQ_auth_enable: false
+      AKHQ_auth_enable: true
       # either 'basic'
       AKHQ_auth_type: basic
       AKHQ_username: admin
       # this is sha256 for abc123! => https://emn178.github.io/online-tools/sha256.html
-      AKHQ_password: 033b83d92431548e13424903c235a9922af56dd34d53c9b72b37cf158489213e
+      AKHQ_password: b7fbaa8188a8f046c10300cd3318e4086393cd8dae63a8109714f34ea85cb988
       #
       # ===== Kafka UI ========
       #

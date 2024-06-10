@@ -305,7 +305,23 @@ services:
       - 28320:28081
     environment:
       AKHQ_CONFIGURATION: |
+        micronaut:
+          security:
+            enabled: true
+            default-group: no-roles
         akhq:
+          security:
+            enabled: true
+            default-group: no-roles
+            basic-auth:
+              - username: admin
+                password: "b7fbaa8188a8f046c10300cd3318e4086393cd8dae63a8109714f34ea85cb988"
+                groups:
+                - admin
+              - username: reader
+                password: "b7fbaa8188a8f046c10300cd3318e4086393cd8dae63a8109714f34ea85cb988"
+                groups:
+                - reader
           pagination.page-size: 25
           topic-data:
             size: 50
@@ -372,8 +388,8 @@ services:
       SPARK_DEFAULTS_CONF_spark_executor_extraJavaOptions:
       SPARK_DEFAULTS_CONF_spark_cores_max: 2
       SPARK_DEFAULTS_CONF_spark_executor_memory: 2048mb
-#      SPARK_DEFAULTS_CONF_spark_sql_extensions: __omit_place_holder__aa4399dfb066199ec2bef0e66a0a93c98476b67a
-#      SPARK_DEFAULTS_CONF_spark_sql_catalog_spark__catalog: __omit_place_holder__aa4399dfb066199ec2bef0e66a0a93c98476b67a
+#      SPARK_DEFAULTS_CONF_spark_sql_extensions: __omit_place_holder__caef06f962079ba2cb8b6d202124af96b96cfd93
+#      SPARK_DEFAULTS_CONF_spark_sql_catalog_spark__catalog: __omit_place_holder__caef06f962079ba2cb8b6d202124af96b96cfd93
       SPARK_DEFAULTS_CONF_spark_sql_catalog_spark__catalog: org.apache.spark.sql.delta.catalog.DeltaCatalog
       SPARK_DEFAULTS_CONF_spark_sql_extensions: io.delta.sql.DeltaSparkSessionExtension
       SPARK_DEFAULTS_CONF_spark_sql_legacy_allowNonEmptyLocationInCTAS: 'true'
