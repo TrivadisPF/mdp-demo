@@ -388,8 +388,8 @@ services:
       SPARK_DEFAULTS_CONF_spark_executor_extraJavaOptions:
       SPARK_DEFAULTS_CONF_spark_cores_max: 2
       SPARK_DEFAULTS_CONF_spark_executor_memory: 2048mb
-#      SPARK_DEFAULTS_CONF_spark_sql_extensions: __omit_place_holder__e06a934158168c3fbec6cb70e79a9c35f62ccac8
-#      SPARK_DEFAULTS_CONF_spark_sql_catalog_spark__catalog: __omit_place_holder__e06a934158168c3fbec6cb70e79a9c35f62ccac8
+#      SPARK_DEFAULTS_CONF_spark_sql_extensions: __omit_place_holder__57348823eb57cef85d8f0444086fa1e04772627f
+#      SPARK_DEFAULTS_CONF_spark_sql_catalog_spark__catalog: __omit_place_holder__57348823eb57cef85d8f0444086fa1e04772627f
       SPARK_DEFAULTS_CONF_spark_sql_catalog_spark__catalog: org.apache.spark.sql.delta.catalog.DeltaCatalog
       SPARK_DEFAULTS_CONF_spark_sql_extensions: io.delta.sql.DeltaSparkSessionExtension
       SPARK_DEFAULTS_CONF_spark_sql_legacy_allowNonEmptyLocationInCTAS: 'true'
@@ -1074,7 +1074,7 @@ services:
       com.platys.name: streamlit
       com.platys.description: Copy/Paste Uploader
       com.platys.webui.title: Streamlit Application UI
-      com.platys.webui.url: http://dataplatform:28345
+      com.platys.webui.url: https://dataplatform:28345
     ports:
       - 28345:80
     extra_hosts:
@@ -1084,6 +1084,7 @@ services:
       STREAMLIT_SERVER_ADDRESS: 0.0.0.0
       STREAMLIT_SERVER_ENABLE_CORS: false
       STREAMLIT_SERVER_ENABLE_XSRF_PROTECTION: false
+      STREAMLIT_SERVER_ENABLE_STATIC_SERVING: true
       STREAMLIT_SERVER_SSL_KEY_FILE: /tmp/key.pem
       STREAMLIT_SERVER_SSL_CERT_FILE: /tmp/cert.pem
       WEBHOOK_URL: http://${PUBLIC_IP}:28511/csv-upload
