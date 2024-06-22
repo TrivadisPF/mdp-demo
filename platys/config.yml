@@ -2098,7 +2098,7 @@
       #
       # ===== Vault ========
       #
-      VAULT_enable: true
+      VAULT_enable: false
       VAULT_use_dev_mode: true
       VAULT_dev_mode_token: 'mdpDemo2024!'
       VAULT_volume_map_data: false

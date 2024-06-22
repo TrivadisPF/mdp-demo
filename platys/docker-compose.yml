@@ -388,8 +388,8 @@ services:
       SPARK_DEFAULTS_CONF_spark_executor_extraJavaOptions:
       SPARK_DEFAULTS_CONF_spark_cores_max: 2
       SPARK_DEFAULTS_CONF_spark_executor_memory: 2048mb
-#      SPARK_DEFAULTS_CONF_spark_sql_extensions: __omit_place_holder__caef06f962079ba2cb8b6d202124af96b96cfd93
-#      SPARK_DEFAULTS_CONF_spark_sql_catalog_spark__catalog: __omit_place_holder__caef06f962079ba2cb8b6d202124af96b96cfd93
+#      SPARK_DEFAULTS_CONF_spark_sql_extensions: __omit_place_holder__5bfa20fd1cad3ce769240dee675f74031d954ff9
+#      SPARK_DEFAULTS_CONF_spark_sql_catalog_spark__catalog: __omit_place_holder__5bfa20fd1cad3ce769240dee675f74031d954ff9
       SPARK_DEFAULTS_CONF_spark_sql_catalog_spark__catalog: org.apache.spark.sql.delta.catalog.DeltaCatalog
       SPARK_DEFAULTS_CONF_spark_sql_extensions: io.delta.sql.DeltaSparkSessionExtension
       SPARK_DEFAULTS_CONF_spark_sql_legacy_allowNonEmptyLocationInCTAS: 'true'
@@ -687,7 +687,6 @@ services:
       SINGLE_USER_CREDENTIALS_USERNAME: nifi
       SINGLE_USER_CREDENTIALS_PASSWORD: mdpDemo2024!
       INITIAL_ADMIN_IDENTITY: nifi
-      VAULT_TOKEN: mdpDemo2024!
     volumes:
       - ./data-transfer:/data-transfer
       - ./plugins/nifi/jars/:/extra-jars/
@@ -1297,32 +1296,6 @@ services:
       - ./data-transfer:/data
     user: 1000:1000
     restart: unless-stopped
-  #  ================================== Vault ================= #
-  vault:
-    image: hashicorp/vault:1.15
-    container_name: vault
-    hostname: vault
-    labels:
-      com.platys.name: vault
-      com.platys.description: Secrets management, encryption as a service, and privileged access management
-      com.platys.webui.title: Vault UI
-      com.platys.webui.url: http://dataplatform:8200
-    ports:
-      - 8200:8200
-    environment:
-      - VAULT_ADDR=http://0.0.0.0:8200
-#      - VAULT_LOCAL_CONFIG='{"listener": [{"tcp":{"address": "0.0.0.0:8200","tls_disable":"0", "tls_cert_file":"/data/vault-volume/certificate.pem", "tls_key_file":"/data/vault-volume/key.pem"}}], "default_lease_ttl": "168h", "max_lease_ttl": "720h"}, "ui": true}'
-      - VAULT_API_ADDR=http://0.0.0.0:8200
-      - VAULT_ADDRESS=http://0.0.0.0:8200
-      - VAULT_DEV_LISTEN_ADDRESS=0.0.0.0:8200
-      - VAULT_DEV_ROOT_TOKEN_ID=mdpDemo2024!
-    volumes:
-      - ./data-transfer:/data-transfer
-      - ./conf/vault/config:/vault/config
-      - ./container-volume/vault/data:/vault/data
-    cap_add:
-      - IPC_LOCK
-    command: vault server -dev
   #  ================================== Docker Registry ========================================== #
   docker-registry:
     image: registry:2
