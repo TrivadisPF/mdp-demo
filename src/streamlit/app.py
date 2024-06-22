@@ -10,14 +10,10 @@ import requests
 from PIL import Image
 from pathlib import Path
 
-URL = os.getenv('WEBHOOK_URL', 'http://18.184.211.93:28511/csv-upload')
-
-
-# Load the logo
-logo = Image.open("/tmp/usz-logo.png")
-
-# Display the logo at the top of the app
-st.image(logo, width=100)  # Adjust the width as needed
+st.markdown(
+        '<img src="./app/static/usz-logo.png" width=130>',
+        unsafe_allow_html=True,
+    )
 
 def is_valid_path(path):
     try:
