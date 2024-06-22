@@ -1,0 +1,13 @@
+
+demo_better_pipeline:
+  outputs:
+    dev:
+      connect_retries: 5
+      connect_timeout: 60
+      host: "{{ env_var('SPARK_THRIFSERVER_HOST') }}"
+      method: thrift
+      port: 10000
+      schema: mdp_demo_better_db
+      threads: 4
+      type: spark
+  target: dev  

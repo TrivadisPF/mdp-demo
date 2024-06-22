@@ -225,10 +225,25 @@ STORED AS INPUTFORMAT 'org.apache.hadoop.hive.ql.io.avro.AvroContainerInputForma
 LOCATION 's3a://mdp-demo-better-bucket/raw/mdp.patient.avro.state.v1'
 TBLPROPERTIES ('avro.schema.url'='s3a://mdp-demo-better-bucket/meta/avro/PatientMessage.avsc','discover.partitions'='false');  
 
-DROP TABLE IF EXISTS prep_patient_t;
+DROP TABLE IF EXISTS ref_patient_t;
 
-CREATE EXTERNAL TABLE prep_patient_t
+CREATE EXTERNAL TABLE ref_patient_t (fullUrl STRING
+									, resourceType STRING
+                                    , id INTEGER
+                                    , mrn_identifier STRING
+                                    , active BOOLEAN
+                                    , family_name STRING
+                                    , given_name STRING
+                                    , gender STRING
+                                    , birth_date STRING
+                                    , street STRING
+                                    , city STRING
+                                    , postal_code STRING
+                                    , country STRING
+                                    , photo_content_type STRING
+                                    , photo_data STRING
+)
 STORED AS parquet
-LOCATION 's3a://mdp-demo-bucket/refined/mdp.patient.avro.state.v1'
+LOCATION 's3a://mdp-demo-better-bucket/refined/patient'
 
 
