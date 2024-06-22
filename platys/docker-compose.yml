@@ -1084,6 +1084,8 @@ services:
       STREAMLIT_SERVER_ADDRESS: 0.0.0.0
       STREAMLIT_SERVER_ENABLE_CORS: false
       STREAMLIT_SERVER_ENABLE_XSRF_PROTECTION: false
+      STREAMLIT_SERVER_SSL_KEY_FILE: /tmp/key.pem
+      STREAMLIT_SERVER_SSL_CERT_FILE: /tmp/cert.pem
       WEBHOOK_URL: http://${PUBLIC_IP}:28511/csv-upload
     volumes:
       - ./data-transfer:/data-transfer

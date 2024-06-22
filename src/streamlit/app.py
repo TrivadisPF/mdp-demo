@@ -47,7 +47,7 @@ def upload(csv_data, domain_name, object_name):
 
 st.title("DPoP: Copy-paste Uploader")
 
-copy_button = Button(label="Get Clipboard Data", css_classes=["bokeh-button"])
+copy_button = Button(label="Get Clipboard Data")
 copy_button.js_on_event("button_click", CustomJS(code="""
     navigator.clipboard.readText().then(text => document.dispatchEvent(new CustomEvent("GET_TEXT", {detail: text})))
     """))
