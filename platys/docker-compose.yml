@@ -388,8 +388,8 @@ services:
       SPARK_DEFAULTS_CONF_spark_executor_extraJavaOptions:
       SPARK_DEFAULTS_CONF_spark_cores_max: 2
       SPARK_DEFAULTS_CONF_spark_executor_memory: 2048mb
-#      SPARK_DEFAULTS_CONF_spark_sql_extensions: __omit_place_holder__5bfa20fd1cad3ce769240dee675f74031d954ff9
-#      SPARK_DEFAULTS_CONF_spark_sql_catalog_spark__catalog: __omit_place_holder__5bfa20fd1cad3ce769240dee675f74031d954ff9
+#      SPARK_DEFAULTS_CONF_spark_sql_extensions: __omit_place_holder__01a350d305c3aa5b225d88d96e23dbbe1a2b2cc0
+#      SPARK_DEFAULTS_CONF_spark_sql_catalog_spark__catalog: __omit_place_holder__01a350d305c3aa5b225d88d96e23dbbe1a2b2cc0
       SPARK_DEFAULTS_CONF_spark_sql_catalog_spark__catalog: org.apache.spark.sql.delta.catalog.DeltaCatalog
       SPARK_DEFAULTS_CONF_spark_sql_extensions: io.delta.sql.DeltaSparkSessionExtension
       SPARK_DEFAULTS_CONF_spark_sql_legacy_allowNonEmptyLocationInCTAS: 'true'
@@ -662,6 +662,7 @@ services:
       # Prometheus Port
       - 1270:1234
       - 28510:28510
+      - 28511:28511
     environment:
       NIFI_WEB_HTTPS_PORT: '18080'
       NIFI_WEB_HTTPS_HOST: nifi-1
