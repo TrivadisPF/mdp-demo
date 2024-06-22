@@ -14,7 +14,7 @@ URL = os.getenv('WEBHOOK_URL', 'http://18.184.211.93:28511/csv-upload')
 
 
 # Load the logo
-logo = Image.open("usz-logo.png")
+logo = Image.open("./usz-logo.png")
 
 # Display the logo at the top of the app
 st.image(logo, width=100)  # Adjust the width as needed
