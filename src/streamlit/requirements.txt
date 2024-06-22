@@ -1,0 +1,5 @@
+streamlit
+streamlit_bokeh3_events
+streamlit-aggrid
+requests
+trino
