@@ -1,2 +1,3 @@
 src/avro/meta/target/**/*.*
 src/dbt/venv/**
+/src/streamlit/venv

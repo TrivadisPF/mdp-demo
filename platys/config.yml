@@ -1173,14 +1173,14 @@
       #
       # ===== Streamlit ========
       #
-      STREAMLIT_enable: false
+      STREAMLIT_enable: true
       STREAMLIT_image: 'python'
-      STREAMLIT_artefacts_folder: './scripts/streamlit/apps'
-      STREAMLIT_apps: 'hello-world/hello-world.py'
-      STREAMLIT_apps_description: 'Streamlit Hello World App'
-      STREAMLIT_requirements_files: ''
+      STREAMLIT_artefacts_folder: '../src/streamlit'
+      STREAMLIT_apps: 'app.py'
+      STREAMLIT_apps_description: 'Copy/Paste Uploader'
+      STREAMLIT_requirements_files: 'requirements.txt'
       STREAMLIT_python_packages: ''
-      STREAMLIT_environment: ''
+      STREAMLIT_environment: 'WEBHOOK_URL=http://${PUBLIC_IP}:28511/csv-upload'
       #
       # ===== Baserow ========
       #
