@@ -66,7 +66,7 @@ if result:
         gb = GridOptionsBuilder.from_dataframe(df)
         gb.configure_pagination(paginationPageSize=20)  # Number of rows per paggb.configure_default_column(resizable=True)
         gb.configure_default_column(resizable=True)
-        #gb.configure_grid_options(domLayout='autoHeight')
+        gb.configure_grid_options(domLayout='autoWidth')
         gridOptions = gb.build()
  
         # Display the grid
@@ -81,6 +81,13 @@ if result:
             reload_data=True
         )
         
+        # Calculate the total number of rows
+        total_rows = len(df)
+
+        # Display the total number of rows
+        st.write(f"Total number of rows: {total_rows}")
+        
+        # create to columns to display the edit fields
         col1, col2, col3 = st.columns(3)
         
         with col1:
@@ -97,4 +104,4 @@ if result:
                 csv_data = df.to_csv(header=True, index=False, lineterminator="\r\n")
                 upload(csv_data, domain_name, object_name)
 
-                st.markdown(f"After a short while the data will be available as the Starburst table `mdp_demo_{domain_name.lower()}_db.raw_{object_name.lower()}_t`. You can use [Cloudbeaver](http://18.184.211.93:8978) to query it. hi")
+                st.markdown(f"After a short while the data will be available as the Starburst table `mdp_demo_{domain_name.lower()}_db.raw_{object_name.lower()}_t`. You can use [Cloudbeaver](http://18.184.211.93:8978) to query it.")
