@@ -13,6 +13,9 @@ from pathlib import Path
 # get the value of the WEBHOOK_URL environment variable
 URL = os.getenv('WEBHOOK_URL', 'http://18.184.211.93:28511/csv-upload')
 
+# status flag
+upload_successful = False
+
 # Streamlit app layout
 st.set_page_config(layout="wide")
 
@@ -23,7 +26,7 @@ st.markdown(
     )
 
 # Uploads a CSV formatted document to the HTTP url provided by the configuration
-def upload(csv_data, domain_name, object_name):
+def upload(csv_data, domain_name, object_name) -> bool:
         
     # URL of the HTTP endpoint to which you want to send the data
     url = f"{URL}"
@@ -35,10 +38,12 @@ def upload(csv_data, domain_name, object_name):
     # Check the response from the server
     if response.status_code == 200:
         st.write("Data sent successfully!")
+        return True
     else:
         st.write(f"Failed to send data. Status code: {response.status_code}")
         st.write("Response content:", response.content)
-
+        return False
+        
 # The Title of the page
 st.title("DPoP: Copy & Paste Uploader")
 
@@ -96,12 +101,14 @@ if result:
             object_name = st.text_input("Object name", key="object_name", help="Specify the object name of the object on the DPoP" )
         #stats = df.describe(include="all")
         #st.table(stats)
-
-        # Display the button only if a table name has been entered and df is not empty
-        if domain_name and object_name and not df.empty:
+        
+        with col3:
+            # Display the button only if a table name has been entered and df is not empty
+            if domain_name and object_name and not df.empty:
             
-            if st.button(label="Upload Data to DPoP"):
-                csv_data = df.to_csv(header=True, index=False, lineterminator="\r\n")
-                upload(csv_data, domain_name, object_name)
+                if st.button(label="Upload Data to DPoP"):
+                    csv_data = df.to_csv(header=True, index=False, lineterminator="\r\n")
+                    upload_successful = upload(csv_data, domain_name, object_name)
 
-                st.markdown(f"After a short while the data will be available as the Starburst table `mdp_demo_{domain_name.lower().replace("-",'_')}_db.raw_{object_name.lower().replace("-",'_')}_t`. You can use [Cloudbeaver](http://18.184.211.93:8978) to query it.")
+        if upload_successful:            
+            st.markdown(f"After a short while the data will be available as the Starburst table `mdp_demo_{domain_name.lower().replace("-",'_')}_db.raw_{object_name.lower().replace("-",'_')}_t`. You can use [Cloudbeaver](http://18.184.211.93:8978) to query it.")
