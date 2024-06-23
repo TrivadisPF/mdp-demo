@@ -10,21 +10,16 @@ import requests
 from PIL import Image
 from pathlib import Path
 
+# get the value of the WEBHOOK_URL environment variable
+URL = os.getenv('WEBHOOK_URL', 'http://18.184.211.93:28511/csv-upload')
+
+# display the USZ logo
 st.markdown(
         '<img src="./app/static/usz-logo.png" width=130>',
         unsafe_allow_html=True,
     )
 
-def is_valid_path(path):
-    try:
-        # If it does not exist, check if it is a valid potential path
-        # This is a more lenient check
-        p = Path(path)        
-        return p.is_absolute() or p.parts[0] != '' 
-    except Exception as e:
-        # Any exception implies the path is not valid
-        return False
-
+# Uploads a CSV formatted document to the HTTP url provided by the configuration
 def upload(csv_data, domain_name, object_name):
         
     # URL of the HTTP endpoint to which you want to send the data
@@ -41,8 +36,10 @@ def upload(csv_data, domain_name, object_name):
         st.write(f"Failed to send data. Status code: {response.status_code}")
         st.write("Response content:", response.content)
 
-st.title("DPoP: Copy-paste Uploader")
+# The Title of the page
+st.title("DPoP: Copy & Paste Uploader")
 
+# Render the get clipboard data button
 copy_button = Button(label="Get Clipboard Data")
 copy_button.js_on_event("button_click", CustomJS(code="""
     navigator.clipboard.readText().then(text => document.dispatchEvent(new CustomEvent("GET_TEXT", {detail: text})))
