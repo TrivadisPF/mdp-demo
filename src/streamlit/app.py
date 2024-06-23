@@ -65,7 +65,6 @@ result = streamlit_bokeh3_events(
 if result:
     if "GET_TEXT" in result:
         df = pd.read_csv(StringIO(result.get("GET_TEXT")))
-#        st.table(df)
  
         # Create GridOptions
         gb = GridOptionsBuilder.from_dataframe(df)
@@ -82,7 +81,7 @@ if result:
             data_return_mode=DataReturnMode.FILTERED_AND_SORTED,
             fit_columns_on_grid_load=True,
             enable_enterprise_modules=True,
-            height=400,
+            height=350,
             reload_data=True
         )
         
