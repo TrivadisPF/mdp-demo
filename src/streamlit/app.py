@@ -13,6 +13,9 @@ from pathlib import Path
 # get the value of the WEBHOOK_URL environment variable
 URL = os.getenv('WEBHOOK_URL', 'http://18.184.211.93:28511/csv-upload')
 
+# Streamlit app layout
+st.set_page_config(layout="wide")
+
 # display the USZ logo
 st.markdown(
         '<img src="./app/static/usz-logo.png" width=130>',
@@ -61,7 +64,9 @@ if result:
  
         # Create GridOptions
         gb = GridOptionsBuilder.from_dataframe(df)
-        gb.configure_pagination(paginationPageSize=20)  # Number of rows per page
+        gb.configure_pagination(paginationPageSize=20)  # Number of rows per paggb.configure_default_column(resizable=True)
+        gb.configure_default_column(resizable=True)
+        #gb.configure_grid_options(domLayout='autoHeight')
         gridOptions = gb.build()
  
         # Display the grid
@@ -79,9 +84,9 @@ if result:
         col1, col2, col3 = st.columns(3)
         
         with col1:
-            domain_name = st.text_input("Domain Name", key="domain_name", help="Specify the domain name of the object on the DPoP" )
+            domain_name = st.text_input("Domain name", key="domain_name", help="Specify the domain name of the object on the DPoP" )
         with col2:
-            object_name = st.text_input("Objekt Name", key="object_name", help="Specify the object name of the object on the DPoP" )
+            object_name = st.text_input("Object name", key="object_name", help="Specify the object name of the object on the DPoP" )
         #stats = df.describe(include="all")
         #st.table(stats)
 
