@@ -104,4 +104,4 @@ if result:
                 csv_data = df.to_csv(header=True, index=False, lineterminator="\r\n")
                 upload(csv_data, domain_name, object_name)
 
-                st.markdown(f"After a short while the data will be available as the Starburst table `mdp_demo_{domain_name.lower()}_db.raw_{object_name.lower()}_t`. You can use [Cloudbeaver](http://18.184.211.93:8978) to query it.")
+                st.markdown(f"After a short while the data will be available as the Starburst table `mdp_demo_{domain_name.lower().replace("-",'_')}_db.raw_{object_name.lower().replace("-",'_')}_t`. You can use [Cloudbeaver](http://18.184.211.93:8978) to query it.")
