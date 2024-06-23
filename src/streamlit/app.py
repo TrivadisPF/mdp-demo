@@ -110,4 +110,4 @@ if result:
                     upload_successful = upload(csv_data, domain_name, object_name)
 
         if upload_successful:            
-            st.markdown(f"After a short while the data will be available as the Starburst table `mdp_demo_{domain_name.lower().replace("-",'_')}_db.raw_{object_name.lower().replace("-",'_')}_t`. You can use [Cloudbeaver](http://18.184.211.93:8978) to query it.")
+            st.markdown(f"After a short while the data will be available as the Starburst table `mdp_demo_{domain_name.lower().replace('-','_')}_db.raw_{object_name.lower().replace('-','_')}_t`. You can use [Cloudbeaver](http://18.184.211.93:8978) to query it.")
