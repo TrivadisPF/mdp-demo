@@ -37,6 +37,10 @@ Hospital Admission Data
     * **User:** `ubuntu` 
     * **Platys Folder** `/home/ubuntu/mdp-demo/platys`
  
-  * Reporting Server  
+  * Domain Controller Server  
     * **Machine:** AWS Lightsail Windows Server 2022 (16 GB RAM, 4 vCPUs, 320 GB SSD)
     * **User:** `Administrator` 
+
+  * Reporting Server  
+    * **Machine:** AWS Lightsail Windows Server 2022 (16 GB RAM, 4 vCPUs, 320 GB SSD)
+    * **User:** `Administrator`     
