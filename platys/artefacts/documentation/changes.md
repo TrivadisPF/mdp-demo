@@ -23,11 +23,27 @@ The Modern Data Platform version 1.18.0 contains the following bug fixes and enh
  * Unstructured API
  * gpt-researcher
  * Docker Exec Web Console
+ * n8n
+ * Arroyo
+ * Data Contract CLI
+ * Data Contract Manager (CE)
+ * Glances
+ * Starrocks
+ * CrewAI Studio <--
+ * Jikkou Server
+ * SearXNG
+ * Draw.io
+ * Unity Catalog & Unity Catalog UI
+ * RAGFlow
+ * Valkey
+ * Authelia
+ * Infinity
+ * SFTPgo
 
 ### Version upgrades
 
  * Update `postgresql` to `16` 
- * Update `mongo` to `7.0` 
+ * Update `mongo` to `8.0` 
  * Update `solr` to `9.5` 
  * Update `janusgraph` to `1.0.0-20231010-065545.e3799d4`
  * Update `neo4j` to `5.19`
@@ -51,10 +67,11 @@ The Modern Data Platform version 1.18.0 contains the following bug fixes and enh
  * Update `single-store` to `0.2.18`
  * Update `timescaledb` to `2.14.2-pg16`
  * Update `hazelcast` to `5.4`
- * Update `trino` to `445`
+ * Update `trino` to `464`
+ * Update `starburstdata` to `453-e.4`
  * Update `prestodb` to `0.286`
  * Update `ahana` to `0.286`
- * Update `dremio` to `24.2`
+ * Update `dremio` to `25.2`
  * Update `hasura` to `v2.38.1-ce`
  * Update `marquez` and `marquez-web` to `0.46.0`
  * Update `datastax` to `6.8.44`
@@ -63,14 +80,35 @@ The Modern Data Platform version 1.18.0 contains the following bug fixes and enh
  * Update `memcached` to `1.6.26`
  * Update `redis-stack` to `7.2.0-v10`
  * Update `stardog` to `latest`
- * Update `minio` to `RELEASE.2024-04-06T05-26-02Z`
- * Update `datahub` to `v0.13.2`
- * Update `risingwave` to `v1.8.2`
+ * Update `minio` to `RELEASE.2024-11-07T00-52-20Z`
+ * Update `datahub` to `v0.14.1`
+ * Update `risingwave` to `v1.10.1`
  * Update `portainer` to `alpine-sts`
- * Update `flowise` to `1.8.1`
- * Update `nifi` to `2.0.0-M3`
- * Update `nifi` to `1.26.0`
- * Update `flink` to `1.19-scala_2.12-java17`
+ * Update `flowise` to `2.0.7`
+ * Update `nifi` to `2.0.0`
+ * Update `nifi` to `1.28.0`
+ * Update `flink` to `1.20-scala_2.12-java17`
+ * Update `Confluent Platform` to `7.7.0`
+ * Update `milvus` to `v2.4.11`
+ * Update `attu` to `v2.4.8`
+ * Update `postgresql` to `17`
+ * Update `dataverse` to `alpha`
+ * Update `airflow` to `2.10.2`
+ * Update `marquez` to `0.49.0`
+ * Update `spark` to `3.5.3`
+ * Update `projectnessie` to `0.100.0`
+ * Update `lakefs` to `1`
+
+### Enhancements
+
+ * a README.md file is generated which lists all the services contained in the `docker-compose.yml` file
+ * Refactored Spark (Master, Worker, History and Thriftserver) to use the bitnami docker images
+ * Refactored Zeppelin to use the Dockerfile provided by the Apache Zeppelin project
+ * Option to overrite the Postgres standard, official image by one with an additional extension, such as `PGVector` or `age` or with your own docker image
+ * Support for the deployment of Dataverse previewers added (see `DATAVERSE_previewers_xxxx` config settings)
+ * Support for `valkey` as an edition to the Redis service, to use Valkey (the fork of Redis with open source license) to use as a drop-in replacement
+ * Update LakeFS to the latest version and add more configuration options
+ * NiFi 2.0.0 support
 
 ### Breaking Changes
 
@@ -80,6 +118,9 @@ The Modern Data Platform version 1.18.0 contains the following bug fixes and enh
  * `wetty` is no longer enabled by default in the initial `config.yml` file
  * Neo4J config setting `NEO4J_plugins` renamed to `NEO4J_download_plugins` and added `NEO4J_mount_plugins` 
  * Memgraph no longer uses external port `7690 ` but `7699`
+ * change default value for `TRINO_edition` to `oss`
+ * `dataverse` port changed to `28394` (used to be `28294` and by taht conflicting with `ckan`)
+ * Support for Spark versions `2.4`, `3.1` and `3.2` removed
  
 ## What's new in 1.17.1
 

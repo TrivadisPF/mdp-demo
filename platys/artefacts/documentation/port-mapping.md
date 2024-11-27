@@ -44,6 +44,7 @@ Container Port(s) | Internal Port(s)           | Service (alternatives) |
 1890 | 1883 | activemq |
 1891 | 1883 | emqx-1 |
 1892 | 1883 | solace-pubsub |
+2022 | 2022 | sftpgo (sftp) |
 2113 | 2113 | eventstore |
 2181 | 2181 | zookeeper-1 |
 2182 | 2182 | zookeeper-2 |
@@ -103,14 +104,16 @@ Container Port(s) | Internal Port(s)           | Service (alternatives) |
 5011 | 5001 | marquez |
 5020 | 5000 | docker-registry |
 5050 | 5050 | zeppelin |
-5500 | 5500 | oracledb-ee |
-5501 | 5500 | oracledb-xe |
-\-     | 5432 | hive-metastore-db |
-\-     | 5432 | hue-db |
+5115 | 5115 | arroyo |
 5432 | 5432 | postgresql |
 5433 | 5432 | timescaledb |
 5434 | 5432 | marquez-db |
 5435 | 5432 | dataverse-postgresql |
+5436 | 5432 | infinity (postgresql) |
+5500 | 5500 | oracledb-ee |
+5501 | 5500 | oracledb-xe |
+\-     | 5432 | hive-metastore-db |
+\-     | 5432 | hue-db |
 5555 | 5555 | airflow-flower |
 5601 | 5601 | kibana |
 5602 | 5601 | datahub-kibana |
@@ -120,6 +123,7 @@ Container Port(s) | Internal Port(s)           | Service (alternatives) |
 5672 | 5672 | activemq |
 5673 | 5672 | rabbitmq (amqp) |
 5674 | 5672 | solace-pubsub (amqp) |
+5678 | 5678 | n8n |
 5701 | 5701 | hazelcast	-1 |
 5705 | 5701 | zeebe-1 |
 5778 | 5778 | jaeger (config) |
@@ -140,6 +144,11 @@ Container Port(s) | Internal Port(s)           | Service (alternatives) |
 6385 | 6379 | redis-stack-1 |
 6385 | 6379 | redash-redis |
 6386 | 6379 | tyk-redis |
+6387 | 6379 | ragflow-redis |
+6389 | 6379 | valkey-1 (if not redis ports are used) |
+6390 | 6379 | valkey-replica-1 |
+6391 | 6379 | valkey-replica-2 |
+6392 | 6379 | valkey-replica-3 |
 6570 | 6570 | hserver-1 |
 6831 | 6831 | jaeger (udp) |
 6749 | 6749 | curity |
@@ -195,9 +204,11 @@ Container Port(s) | Internal Port(s)           | Service (alternatives) |
 8200 | 8200 | vault |
 8222 | 8222 | nats-1 |
 8288 | 8288 | vector-admin |
+9380 | 9380 | ragflow |
 8443 | 8443 | kong (proxy ssl) |
 8444 | 8444 | kong (admin api ssl) |
 8446 | 8443 | curity |
+8501 | 8501 | crewai-studio | 
 8585 | 8585 | openmetadata-server |
 8586 | 8586 | openmetadata-server |
 8761 | 8761 | ioevent-cockpit-api |
@@ -335,11 +346,14 @@ Container Port(s) | Internal Port(s)           | Service (alternatives) |
 19098 | 19098 | kafka-7 (docker-host)   |
 19099 | 19099 | kafka-8 (docker-host)   |
 19120 | 19120 | nessie |
+19121 | 9000 | nessie (management port) |
 19630 | 19630 | streamsets-transformer-1 |
 19631 | 19630 | streamsets-transformer-1 |
 19632 | 19630 | streamsets-transformer-1 |
 19999 | 9999 | influxdb2 |
 21000 | 21000 | atlas |
+23817 | 23817 | infinity (thrift) |
+23820 | 23820 | infinity (http) |
 24224 | 24224 | fluentd |
 24225 | 24224 | fluent-bit |
 26500 | 26500 | zeebe-1 |
@@ -369,6 +383,7 @@ Container Port(s) | Internal Port(s)           | Service (alternatives) |
 29200 | 9200 | opensearch-1 |
 29600 | 9600 | opensearch-1 |
 31010 | 31010 | dremio |
+32010 | 32010 | dremio |
 39092 | 29092 | kafka-1 (localhost)   |
 39093 | 29093 | kafka-2 (localhost    |
 39094 | 29094 | kafka-3 (localhost)   |
@@ -484,11 +499,11 @@ Container Port(s) | Internal Port(s)           | Service (alternatives) |
 28213 | 8098 | pinot-server-2 |
 28214 | 8098 | pinot-server-3 |
 28220 | 8000 | lakefs |
-28221 | 8081 | emqx-1 |
-28222 | 8083 | emqx-1 |
-28223 | 8084 | emqx-1 |
-28224 | 8883 | emqx-1 |
-28225 | 18083 | emqx-1 |
+28221 | 5000 | lakefs-webhook |
+28222 | |  |
+28223 | | |
+28224 | |  |
+28225 | |  |
 28226 | 9000 | questdb |
 28227 | 8080 | debezium-ui |
 28228 | 9998 | tikka-server |
@@ -636,6 +651,37 @@ Container Port(s) | Internal Port(s)           | Service (alternatives) |
 28373 | 8000 | verba |
 28374 | 8000 | unstructured-api |
 28375 | 8888 | docker-exec-webconsole |
+28376 | 4040 | jupyter (spark UI)  |
+28377 | 4041 | jupyter (spark UI)  |
+28378 | 4042 | jupyter (spark UI)  |
+28379 | 4043 | jupyter (spark UI)  |
+28380 | 4044 | jupyter (spark UI)  |
+28381 | 8080 | data-contract-manager  |
+28382 | 8080 | sftpgo (webui) |
+28383 | 61208 | glances  |
+28384 | 61209 | glances  |
+28385 | 4040 | kyuubi (spark ui)  |
+28386 | 4041 | kyuubi (spark ui)  |
+28387 | 4042 | kyuubi (spark ui)  |
+28388 | 8080 | jikkou-server  |
+28389 | 8080 | searxng  |
+28390 | 8080 | drawio | 
+28391 | 8443 | drawio | 
+28392 | 8080 | unity-catalog  |
+28393 | 3000 | unity-catalog-ui  |
+28394 | 8080 | dataverse  |
+28395 | 80 | dataverse-previewer-provider  |
+28396 | 80 | ragflow  |
+28397 | 443 | ragflow |
+28398 | 5678 | ragflow |
+28399 | 9091 | authelia |
+28400 | 8081 | emqx-1 |
+28401 | 8083 | emqx-1 |
+28402 | 8084 | emqx-1 |
+28403 | 8883 | emqx-1 |
+28404 | 18083 | emqx-1 |
+28405 | 3001 | perplexica-backend |
+28406 | 3001 | perplexica-frontend |
 
 ## Ports > 28500
 

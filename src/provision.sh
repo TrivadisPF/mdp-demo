@@ -21,6 +21,9 @@ mkdir -p $DATAPLATFORM_HOME/data-transfer/landing-area/admission
 echo "copy airflow pipelines"
 cp -rv ./airflow/*.py $DATAPLATFORM_HOME/scripts/airflow/dags
 
-echo "deploy streamlit app"
+echo "deploy streamlit apps"
 mkdir -p $DATAPLATFORM_HOME/scripts/streamlit/apps/csv-uploader
-cp -rm ./streamlit/*.* $DATAPLATFORM_HOME/scripts/streamlit/apps/csv-uploader
+cp -rm ./streamlit/csv-uploader/*.* $DATAPLATFORM_HOME/scripts/streamlit/apps/csv-uploader
+
+mkdir -p $DATAPLATFORM_HOME/scripts/streamlit/apps/vital-signs-sim
+cp -rm ./streamlit/vital-signs-sim/*.* $DATAPLATFORM_HOME/scripts/streamlit/apps/vital-signs-sim
