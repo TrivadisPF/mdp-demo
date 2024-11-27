@@ -17,25 +17,6 @@ st.markdown(
         '<img src="./app/static/usz-logo.png" width=130>',
         unsafe_allow_html=True,
     )
-
-# Uploads a CSV formatted document to the HTTP url provided by the configuration
-def upload(csv_data, domain_name, object_name) -> bool:
-        
-    # URL of the HTTP endpoint to which you want to send the data
-    url = f"{URL}"
-    
-    # Send the CSV data via an HTTP POST request
-    headers = {'Content-Type': 'text/csv', 'X-Domain-Name': domain_name, 'X-Object-Name': object_name}
-    response = requests.post(url, data=csv_data, headers=headers)    
-    
-    # Check the response from the server
-    if response.status_code == 200:
-        st.write("Data sent successfully!")
-        return True
-    else:
-        st.write(f"Failed to send data. Status code: {response.status_code}")
-        st.write("Response content:", response.content)
-        return False
         
 # Render the get clipboard data button# Title
 st.title("Simple Streamlit HTTP Client")
