@@ -396,8 +396,8 @@ services:
       SPARK_DEFAULTS_CONF_spark_executor_extraJavaOptions:
       SPARK_DEFAULTS_CONF_spark_cores_max: 2
       SPARK_DEFAULTS_CONF_spark_executor_memory: 2048mb
-#      SPARK_DEFAULTS_CONF_spark_sql_extensions: __omit_place_holder__77b838033956d38e02f14dbbda7eef915455220b
-#      SPARK_DEFAULTS_CONF_spark_sql_catalog_spark__catalog: __omit_place_holder__77b838033956d38e02f14dbbda7eef915455220b
+#      SPARK_DEFAULTS_CONF_spark_sql_extensions: __omit_place_holder__e0cc51470546dc7c637f2fac56d9ef77bb6a5274
+#      SPARK_DEFAULTS_CONF_spark_sql_catalog_spark__catalog: __omit_place_holder__e0cc51470546dc7c637f2fac56d9ef77bb6a5274
       SPARK_DEFAULTS_CONF_spark_sql_catalog_spark__catalog: org.apache.spark.sql.delta.catalog.DeltaCatalog
       SPARK_DEFAULTS_CONF_spark_sql_extensions: io.delta.sql.DeltaSparkSessionExtension
       SPARK_DEFAULTS_CONF_spark_sql_legacy_allowNonEmptyLocationInCTAS: 'true'
@@ -1108,6 +1108,7 @@ services:
       STREAMLIT_SERVER_SSL_KEY_FILE: /tmp/key.pem
       STREAMLIT_SERVER_SSL_CERT_FILE: /tmp/cert.pem
       WEBHOOK_URL: http://${PUBLIC_IP}:28511/csv-upload
+      VITAL_SIGNS_WEBHOOK_URL: http://${PUBLIC_IP}:28510/message
     volumes:
       - ./data-transfer:/data-transfer
       - ./scripts/streamlit/run_pip_and_streamlit.sh:/app/run_pip_and_streamlit.sh:ro
@@ -1141,6 +1142,7 @@ services:
       STREAMLIT_SERVER_SSL_KEY_FILE: /tmp/key.pem
       STREAMLIT_SERVER_SSL_CERT_FILE: /tmp/cert.pem
       WEBHOOK_URL: http://${PUBLIC_IP}:28511/csv-upload
+      VITAL_SIGNS_WEBHOOK_URL: http://${PUBLIC_IP}:28510/message
     volumes:
       - ./data-transfer:/data-transfer
       - ./scripts/streamlit/run_pip_and_streamlit.sh:/app/run_pip_and_streamlit.sh:ro

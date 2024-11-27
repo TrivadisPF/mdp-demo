@@ -1180,7 +1180,7 @@
       STREAMLIT_apps_description: 'Copy/Paste Uploader,Vital Signs Simulator'
       STREAMLIT_requirements_files: 'requirements.txt,requirements.txt'
       STREAMLIT_python_packages: ''
-      STREAMLIT_environment: 'WEBHOOK_URL=http://${PUBLIC_IP}:28511/csv-upload'
+      STREAMLIT_environment: 'WEBHOOK_URL=http://${PUBLIC_IP}:28511/csv-upload,VITAL_SIGNS_WEBHOOK_URL=http://${PUBLIC_IP}:28510/message'
       STREAMLIT_enable_https: true
       #
       # ===== Baserow ========

@@ -4,7 +4,7 @@ import json
 import os
 
 # get the value of the WEBHOOK_URL environment variable
-URL = os.getenv('WEBHOOK_URL', 'http://3.126.248.207:28510/message')
+URL = os.getenv('VITAL_SIGNS_WEBHOOK_URL', 'http://3.126.248.207:28510/message')
 
 # status flag
 upload_successful = False
