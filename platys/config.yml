@@ -48,7 +48,6 @@
       # ===== Apache Kafka ========
       #
       KAFKA_enable: true
-      CONFLUENT_version: 7.6.0
       # one of enterprise, community
       KAFKA_edition: 'community'
       KAFKA_use_kraft_mode: false
@@ -268,14 +267,22 @@
       JIKKOU_validation_default_topic_name_regex: '[a-zA-Z0-9\\._\\-]+'
       JIKKOU_validation_default_topic_min_num_partitions: 1
       JIKKOU_validation_default_topic_min_replication_factor: 1
+
       JIKKOU_exclude_resources_regexp: ''
       JIKKOU_include_resources_regexp: ''
+
       JIKKOU_set_labels: ''
       JIKKOU_set_values: ''
       # one of text, compact, json, yaml
       JIKKOU_output_format: ''
       # one of TRACE, DEBUG, INFO, WARN, ERROR
       JIKKOU_logger_level: ''
+
+      #
+      # ===== jikkou API server ========
+      #
+      JIKKOU_SERVER_enable: false
+
       #
       # ===== Various Kafka UIs ========
       #
@@ -450,6 +457,7 @@
       # ===== Apache Spark ========
       #
       SPARK_enable: true
+
       # either 2.4 or 3.1 or 3.2
       SPARK_base_version: 3.5
       
@@ -462,7 +470,7 @@
       SPARK_worker_memory:
       SPARK_worker_opts: '-Dspark.worker.cleanup.enabled=true'
       SPARK_jars_repositories: ''
-      SPARK_jars_packages: 'org.postgresql:postgresql:42.3.4,org.apache.spark:spark-avro_2.12:3.2.4'
+      SPARK_jars_packages: 'org.postgresql:postgresql:42.3.4,org.apache.spark:spark-avro_2.12:3.5.3'
       SPARK_jars_excludes: ''
       SPARK_jars: ''
       SPARK_jars_ivySettings: ''
@@ -476,6 +484,7 @@
       # either delta, iceberg
       SPARK_table_format_type: 'delta'
       # misc spark 'addons'
+
       SPARK_HISTORY_enable: false
       SPARK_THRIFTSERVER_enable: true
       SPARK_THRIFTSERVER_cores_max:
@@ -484,6 +493,16 @@
       # ===== Apache Kyuubi ========
       #
       KYUUBI_enable: false
+      KYUUBI_use_local_spark: true
+      # "hive" or "in-memory"
+      KYUUBI_local_spark_catalog: in-memory      
+      KYUUBI_local_spark_jars_repositories: ''
+      KYUUBI_local_spark_jars_packages: ''
+      KYUUBI_local_spark_jars_excludes: ''
+      KYUUBI_local_spark_jars: ''
+      KYUUBI_local_spark_jars_ivySettings: ''
+      KYUUBI_local_spark_install_jars_packages: ''
+      KYUUBI_local_spark_sql_warehouse_dir: ''
       #
       # ===== Apache Livy ========
       #
@@ -496,10 +515,15 @@
       FLINK_deployment_mode: 'session'
       FLINK_taskmanagers: 1
       FLINK_enable_build_in_plugins: ''
-      FLINK_install_jars_packages: ''
-      FLINK_install_addl_files: ''
+      FLINK_install_maven_dep: '' 
+      FLINK_install_file_dep: ''
+      FLINK_python_enabled: false
+      FLINK_python_provide_requirements_file: false
+      FLINK_python_version: '3.10'      
+
       FLINK_SQL_CLI_enable: false
       FLINK_SQL_CLI_mode: 'embedded'
+      
       FLINK_SQL_GATEWAY_enable: false
       #
       # ===== Nussknacker ========
@@ -521,6 +545,15 @@
       # ===== Unstructured.IO ========
       #
       UNSTRUCTURED_enable: false
+      UNSTRUCTURED_memory_free_minimum_mb: 2048
+      UNSTRUCTURED_api_key:
+      UNSTRUCTURED_max_lifetime_seconds:
+
+      #
+      # ===== SearXNG ========
+      #
+      SEARXNG_enable: false
+
       #
       # ===== Apache Hive ========
       #
@@ -529,6 +562,7 @@
       # ===== Apache Hive Metastore ========
       #
       HIVE_METASTORE_enable: true
+      HIVE_METASTORE_volume_map_data: false      
       #
       # ===== Apache Avro Tools ========
       #
@@ -869,7 +903,9 @@
       JUPYTER_enable: true
       # one of 'minimal', 'r', 'scipy', 'tensorflow', 'datascience', 'all-spark'
       JUPYTER_edition: 'all-spark'
+      JUPYTER_upload_data_transfer_to_workspace_enabled: false      
       JUPYTER_volume_map_data: false
+      JUPYTER_data_folder_on_docker_host: ./container-volume/jupyter/work
       JUPYTER_python_packages: ''
       JUPYTER_requirements_file: ''
       JUPYTER_spark_jars_packages: ''
@@ -2289,6 +2325,11 @@
           KAFKA_sasl_password:
           SCHEMA_REGISTRY_enable: false
           SCHEMA_REGISTRY_url:
+
+
+          SPARK_enable: false
+          SPARK_master_url: 'spark://spark-master:7077'
+
           S3_enable: false
           S3_endpoint: s3.amazonaws.com
           S3_default_region:
@@ -2298,6 +2339,9 @@
           ADLS_storage_account:
           DATAHUB_enable: false
           DATAHUB_gms_url:
+
           OLLAMA_enable: false
           OLLAMA_url: http://${PUBLIC_IP}:11434
+
+          OPENAI_enable: false
       
