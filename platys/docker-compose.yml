@@ -396,8 +396,8 @@ services:
       SPARK_DEFAULTS_CONF_spark_executor_extraJavaOptions:
       SPARK_DEFAULTS_CONF_spark_cores_max: 2
       SPARK_DEFAULTS_CONF_spark_executor_memory: 2048mb
-#      SPARK_DEFAULTS_CONF_spark_sql_extensions: __omit_place_holder__c6bff347164a7511c10acd15b3c3c5c1dbe9d493
-#      SPARK_DEFAULTS_CONF_spark_sql_catalog_spark__catalog: __omit_place_holder__c6bff347164a7511c10acd15b3c3c5c1dbe9d493
+#      SPARK_DEFAULTS_CONF_spark_sql_extensions: __omit_place_holder__4fe3a997b440112f76f6a989299787c71520e8a6
+#      SPARK_DEFAULTS_CONF_spark_sql_catalog_spark__catalog: __omit_place_holder__4fe3a997b440112f76f6a989299787c71520e8a6
       SPARK_DEFAULTS_CONF_spark_sql_catalog_spark__catalog: org.apache.spark.sql.delta.catalog.DeltaCatalog
       SPARK_DEFAULTS_CONF_spark_sql_extensions: io.delta.sql.DeltaSparkSessionExtension
       SPARK_DEFAULTS_CONF_spark_sql_legacy_allowNonEmptyLocationInCTAS: 'true'
@@ -1358,7 +1358,7 @@ services:
         mkdir -p /tmp/.aws
         eval "echo \"$$(cat /tmp/credentials.templ)\"" >> /tmp/.aws/credentials
         mc mb --ignore-existing minio-1/admin-bucket
-              for bucket in $$(tr ',' '\n' <<< "")
+              for bucket in $$(tr ',' '\n' <<< "mdp-demo-better-bucket,mdp-demo-bucket,mdp-demo-upload-bucket")
         do
           mc mb --ignore-existing minio-1/$$bucket
         done
