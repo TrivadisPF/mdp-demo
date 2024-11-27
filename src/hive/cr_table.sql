@@ -244,6 +244,6 @@ CREATE EXTERNAL TABLE ref_patient_t (fullUrl STRING
                                     , photo_data STRING
 )
 STORED AS parquet
-LOCATION 's3a://mdp-demo-better-bucket/refined/patient'
+LOCATION 's3a://mdp-demo-better-bucket/refined/patient';
 
 
