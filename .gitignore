@@ -1,3 +1,4 @@
 src/avro/meta/target/**/*.*
 src/dbt/venv/**
 src/streamlit/vital-signs-sim/venv/**
+src/streamlit/uploader/venv/**
