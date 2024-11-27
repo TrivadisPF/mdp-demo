@@ -396,8 +396,8 @@ services:
       SPARK_DEFAULTS_CONF_spark_executor_extraJavaOptions:
       SPARK_DEFAULTS_CONF_spark_cores_max: 2
       SPARK_DEFAULTS_CONF_spark_executor_memory: 2048mb
-#      SPARK_DEFAULTS_CONF_spark_sql_extensions: __omit_place_holder__e0cc51470546dc7c637f2fac56d9ef77bb6a5274
-#      SPARK_DEFAULTS_CONF_spark_sql_catalog_spark__catalog: __omit_place_holder__e0cc51470546dc7c637f2fac56d9ef77bb6a5274
+#      SPARK_DEFAULTS_CONF_spark_sql_extensions: __omit_place_holder__c6bff347164a7511c10acd15b3c3c5c1dbe9d493
+#      SPARK_DEFAULTS_CONF_spark_sql_catalog_spark__catalog: __omit_place_holder__c6bff347164a7511c10acd15b3c3c5c1dbe9d493
       SPARK_DEFAULTS_CONF_spark_sql_catalog_spark__catalog: org.apache.spark.sql.delta.catalog.DeltaCatalog
       SPARK_DEFAULTS_CONF_spark_sql_extensions: io.delta.sql.DeltaSparkSessionExtension
       SPARK_DEFAULTS_CONF_spark_sql_legacy_allowNonEmptyLocationInCTAS: 'true'
@@ -1245,7 +1245,7 @@ services:
     restart: unless-stopped
   #  ================================== Trino ========================================== #
   trino-1:
-    image: starburstdata/starburst-enterprise:453-e.4
+    image: trinodb/trino:464
     hostname: trino-1
     container_name: trino-1
     labels:
@@ -1259,7 +1259,6 @@ services:
     environment:
       # this is only generated to keep the structure valid if no other env variables are present
       DUMMY: make-it-valid
-      DATA_PRODUCT_ENABLED: 'false'
       S3_ENDPOINT: http://minio-1:9000
       S3_REGION: us-east-1
       S3_AWS_ACCESS_KEY: ${PLATYS_AWS_ACCESS_KEY:-minio}
@@ -1279,14 +1278,13 @@ services:
       EVENT_LISTENER_CONFIG_FILES: ''
     volumes:
       - ./data-transfer:/data-transfer
-      - ./conf/starburstdata/single/config.properties:/etc/starburst/config.properties
-      - ./conf/starburstdata/single/node.properties:/etc/starburst/node.properties
-      - ./conf/starburstdata/catalog/minio.properties:/etc/starburst/catalog/minio.properties
-      - ./conf/starburstdata/catalog/delta.properties:/etc/starburst/catalog/delta.properties
-      - ./conf/starburstdata/catalog/postgresql.properties:/etc/starburst/catalog/postgresql.properties
-      - ./conf/starburstdata/catalog/redis.properties:/etc/starburst/catalog/redis.properties
-      - ./licenses/starburstdata/starburstdata.license:/etc/starburst/starburstdata.license
-      - ./custom-conf/starburstdata/security:/etc/starburst/security
+      - ./conf/trino/single/config.properties:/etc/trino/config.properties
+      - ./conf/trino/single/node.properties:/etc/trino/node.properties
+      - ./conf/trino/catalog/minio.properties:/etc/trino/catalog/minio.properties
+      - ./conf/trino/catalog/delta.properties:/etc/trino/catalog/delta.properties
+      - ./conf/trino/catalog/postgresql.properties:/etc/trino/catalog/postgresql.properties
+      - ./conf/trino/catalog/redis.properties:/etc/trino/catalog/redis.properties
+      - ./custom-conf/trino/security:/etc/trino/security
     restart: unless-stopped
   trino-cli:
     image: trivadis/trino-cli:latest
