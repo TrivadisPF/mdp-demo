@@ -27,26 +27,48 @@ The Modern Data Platform version 1.18.0 contains the following bug fixes and enh
  * Arroyo
  * Data Contract CLI
  * Data Contract Manager (CE)
+ * Data Mesh Manager (CE)
  * Glances
  * Starrocks
- * CrewAI Studio <--
+ * CrewAI Studio 
  * Jikkou Server
  * SearXNG
  * Draw.io
  * Unity Catalog & Unity Catalog UI
- * RAGFlow
+ * RAGFlow 
  * Valkey
  * Authelia
  * Infinity
  * SFTPgo
+ * Ofelia
+ * Cedar Agent
+ * Open Policy Administration Layer (OPAL)
+ * Oracle Database Free (Oracle official)
+ * Oracle Autonomous Database Free
+ * Git Web
+ * LangWatch
+ * LangEvals
+ * Agent Zero
+ * Data Product Portal
+ * Mage AI
+ * Timeplus
+ * Aspire
+ * OpenLIT
+ * ClickHouse
+ * Kestra
+
+### New/Updated Cookbook Recipes
+
+ * [Schedule and execute commands in Docker containers using Ofelia](../cookbooks/recipes/scheduling-commands-on-docker-containers-with-ofelia/README)
+ * [Git for Data with LakeFS](../cookbooks/recipes/git-for-data-with-lakefs/README)
 
 ### Version upgrades
 
- * Update `postgresql` to `16` 
+ * Update `postgresql` to `17` 
  * Update `mongo` to `8.0` 
  * Update `solr` to `9.5` 
  * Update `janusgraph` to `1.0.0-20231010-065545.e3799d4`
- * Update `neo4j` to `5.19`
+ * Update `neo4j` to `5.26`
  * Update `memgraph` to `2.16.0`
  * Update `memgraph-mage` to `1.16-memgraph-2.16-dev`
  * Update `arcadedb` to `24.2.1`
@@ -67,13 +89,13 @@ The Modern Data Platform version 1.18.0 contains the following bug fixes and enh
  * Update `single-store` to `0.2.18`
  * Update `timescaledb` to `2.14.2-pg16`
  * Update `hazelcast` to `5.4`
- * Update `trino` to `464`
- * Update `starburstdata` to `453-e.4`
+ * Update `trino` to `468`
+ * Update `starburstdata` to `462-e.2`
  * Update `prestodb` to `0.286`
  * Update `ahana` to `0.286`
  * Update `dremio` to `25.2`
  * Update `hasura` to `v2.38.1-ce`
- * Update `marquez` and `marquez-web` to `0.46.0`
+ * Update `marquez` and `marquez-web` to `0.50.0`
  * Update `datastax` to `6.8.44`
  * Update `elasticsearch` to `7.17.20` and `8.13.0`
  * Update `kibana` to `7.17.20` and `8.13.0`
@@ -82,11 +104,11 @@ The Modern Data Platform version 1.18.0 contains the following bug fixes and enh
  * Update `stardog` to `latest`
  * Update `minio` to `RELEASE.2024-11-07T00-52-20Z`
  * Update `datahub` to `v0.14.1`
- * Update `risingwave` to `v1.10.1`
+ * Update `risingwave` to `v2.1.0`
  * Update `portainer` to `alpine-sts`
- * Update `flowise` to `2.0.7`
- * Update `nifi` to `2.0.0`
- * Update `nifi` to `1.28.0`
+ * Update `flowise` to `2.2.3`
+ * Update `nifi` to `2.1.0`
+ * Update `nifi` to `1.28.1`
  * Update `flink` to `1.20-scala_2.12-java17`
  * Update `Confluent Platform` to `7.7.0`
  * Update `milvus` to `v2.4.11`
@@ -98,17 +120,21 @@ The Modern Data Platform version 1.18.0 contains the following bug fixes and enh
  * Update `spark` to `3.5.3`
  * Update `projectnessie` to `0.100.0`
  * Update `lakefs` to `1`
+ * Update `vault` to `1.18`
+ * Update `opa` to `0.71.0-dev`
+ * Update `styra` to `1.30.0-80-debug`
+ * Update `jikkou` to `main` - to support Mac M1
 
 ### Enhancements
 
- * a README.md file is generated which lists all the services contained in the `docker-compose.yml` file
+ * a `README.md` file is generated which lists all the services contained in the `docker-compose.yml` file
  * Refactored Spark (Master, Worker, History and Thriftserver) to use the bitnami docker images
  * Refactored Zeppelin to use the Dockerfile provided by the Apache Zeppelin project
  * Option to overrite the Postgres standard, official image by one with an additional extension, such as `PGVector` or `age` or with your own docker image
  * Support for the deployment of Dataverse previewers added (see `DATAVERSE_previewers_xxxx` config settings)
  * Support for `valkey` as an edition to the Redis service, to use Valkey (the fork of Redis with open source license) to use as a drop-in replacement
  * Update LakeFS to the latest version and add more configuration options
- * NiFi 2.0.0 support
+ * NiFi 2.0.0 can be run it in parallel to a 1.x version (`NIFI2_enable` config setting)
 
 ### Breaking Changes
 
@@ -121,6 +147,12 @@ The Modern Data Platform version 1.18.0 contains the following bug fixes and enh
  * change default value for `TRINO_edition` to `oss`
  * `dataverse` port changed to `28394` (used to be `28294` and by taht conflicting with `ckan`)
  * Support for Spark versions `2.4`, `3.1` and `3.2` removed
+ * Remove the `NIFI_major_version` config setting, as there is now support to run both NiFi v1 and v2 in parallel (`NIFI_enable` vs. `NIFI2_enable`)
+ * both in Apache NiFi v1 and v2 support, the `/plugins/nifi/jars/` / `/plugins/nifi2/jars/` is now mapped to `/opt/nifi/nifi-current/addl-jars/` and no longer to `/extra-jars` inside the docker container.
+ * Rename config setting `PYTHON_script_file` to `PYTHON_script_to_run`
+ * Rename `ORACLE_FREE_xxx` to `ORACLE_OCI_FREE_xxx` and use `ORACLE_FREE_xxx` for the Oracle official docker image. 
+ * Rename config setting `NEO4J_admin_password` to `NEO4J_password`
+ * Rename config setting `STREAMLIT_environment` to `STREAMLIT_env_variables`
  
 ## What's new in 1.17.1
 

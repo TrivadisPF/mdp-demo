@@ -4,7 +4,7 @@
 #cp -rv ./docker-compose.override.yml $DATAPLATFORM_HOME/
 
 echo "copy NiFi JDBC Jars"
-cp -rv ./infra/nifi/jdbc-driver/*.jar $DATAPLATFORM_HOME/plugins/nifi/jars/
+cp -rv ./infra/nifi/jdbc-driver/*.jar $DATAPLATFORM_HOME/plugins/nifi/addl-jars/
 
 echo "copy NiFi requirements.txt with the Python modules to install inside NiFi"
 cp -rv ./infra/nifi/python/requirements.txt $DATAPLATFORM_HOME/custom-conf/nifi/requirements.txt
@@ -21,9 +21,10 @@ mkdir -p $DATAPLATFORM_HOME/data-transfer/landing-area/admission
 echo "copy airflow pipelines"
 cp -rv ./airflow/*.py $DATAPLATFORM_HOME/scripts/airflow/dags
 
-echo "deploy streamlit apps"
-mkdir -p $DATAPLATFORM_HOME/scripts/streamlit/apps/csv-uploader
-cp -rm ./streamlit/csv-uploader/*.* $DATAPLATFORM_HOME/scripts/streamlit/apps/csv-uploader
+# at the moment platys is using directly the ../src folder
+#echo "deploy streamlit apps"
+#mkdir -p $DATAPLATFORM_HOME/scripts/streamlit/apps/csv-uploader
+#cp -rm ./streamlit/csv-uploader/*.* $DATAPLATFORM_HOME/scripts/streamlit/apps/csv-uploader
 
-mkdir -p $DATAPLATFORM_HOME/scripts/streamlit/apps/vital-signs-sim
-cp -rm ./streamlit/vital-signs-sim/*.* $DATAPLATFORM_HOME/scripts/streamlit/apps/vital-signs-sim
+#mkdir -p $DATAPLATFORM_HOME/scripts/streamlit/apps/vital-signs-sim
+#cp -rm ./streamlit/vital-signs-sim/*.* $DATAPLATFORM_HOME/scripts/streamlit/apps/vital-signs-sim

@@ -396,8 +396,8 @@ services:
       SPARK_DEFAULTS_CONF_spark_executor_extraJavaOptions:
       SPARK_DEFAULTS_CONF_spark_cores_max: 2
       SPARK_DEFAULTS_CONF_spark_executor_memory: 2048mb
-#      SPARK_DEFAULTS_CONF_spark_sql_extensions: __omit_place_holder__0c47084bd76b2624f787ea6f4e7914277710f100
-#      SPARK_DEFAULTS_CONF_spark_sql_catalog_spark__catalog: __omit_place_holder__0c47084bd76b2624f787ea6f4e7914277710f100
+#      SPARK_DEFAULTS_CONF_spark_sql_extensions: __omit_place_holder__ad85aca39dd54adf3a1491576a63244e105d137d
+#      SPARK_DEFAULTS_CONF_spark_sql_catalog_spark__catalog: __omit_place_holder__ad85aca39dd54adf3a1491576a63244e105d137d
       SPARK_DEFAULTS_CONF_spark_sql_catalog_spark__catalog: org.apache.spark.sql.delta.catalog.DeltaCatalog
       SPARK_DEFAULTS_CONF_spark_sql_extensions: io.delta.sql.DeltaSparkSessionExtension
       SPARK_DEFAULTS_CONF_spark_sql_legacy_allowNonEmptyLocationInCTAS: 'true'
@@ -732,7 +732,7 @@ services:
       INITIAL_ADMIN_IDENTITY: nifi
     volumes:
       - ./data-transfer:/data-transfer
-      - ./plugins/nifi/jars/:/extra-jars/
+      - ./plugins/nifi/addl-jars/:/opt/nifi/nifi-current/addl-jars/
       - ./plugins/nifi/nars/:/opt/nifi/nifi-current/extensions/
       - aws-credentials-vol:/opt/nifi/nifi-current/.aws:RO
     entrypoint:
@@ -831,6 +831,12 @@ services:
       - /var/run/docker.sock:/var/run/docker.sock
     user: ${AIRFLOW_UID:-50000}:${AIRFLOW_GID:-0}
     restart: unless-stopped
+    healthcheck:
+      test: [CMD, curl, --fail, http://localhost:8080/health]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+      start_period: 30s
   airflow-scheduler:
     image: apache/airflow:2.10.2-python3.10
     container_name: airflow-scheduler
@@ -878,6 +884,12 @@ services:
       - /var/run/docker.sock:/var/run/docker.sock
     user: ${AIRFLOW_UID:-50000}:${AIRFLOW_GID:-0}
     restart: unless-stopped
+    healthcheck:
+      test: [CMD, curl, --fail, http://localhost:8974/health]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+      start_period: 30s
   airflow-db:
     image: postgres:13
     container_name: airflow-db
@@ -1205,11 +1217,11 @@ services:
     labels:
       com.platys.name: postgresql
       com.platys.description: Open-Source object-relational database system
-      com.platys.password.envvars: PLATYS_AIRFLOW_POSTGRESQL_PASSWORD,PLATYS_POSTGRESQL_MULTIPLE_PASSWORD
+      com.platys.password.envvars: PLATYS_POSTGRESQL_PASSWORD,PLATYS_POSTGRESQL_MULTIPLE_PASSWORD
     ports:
       - 5432:5432
     environment:
-      - POSTGRES_PASSWORD=${PLATYS_AIRFLOW_POSTGRESQL_PASSWORD:-mdpDemo2024!}
+      - POSTGRES_PASSWORD=${PLATYS_POSTGRESQL_PASSWORD:-mdpDemo2024!}
       - POSTGRES_USER=postgres
       - POSTGRES_DB=postgres
       - POSTGRES_MULTIPLE_DATABASES=demodb,starburst
@@ -1245,14 +1257,14 @@ services:
     restart: unless-stopped
   #  ================================== Trino ========================================== #
   trino-1:
-    image: trinodb/trino:464
+    image: trinodb/trino:468
     hostname: trino-1
     container_name: trino-1
     labels:
       com.platys.name: trino
       com.platys.description: SQL Virtualization Engine
       com.platys.webui.title: Trino UI
-      com.platys.webui.url: http://dataplatform:28082
+      com.platys.webui.url: http://dataplatform:28082/preview
     ports:
       - 28082:8080
       - 28083:8443
@@ -1316,8 +1328,9 @@ services:
     environment:
       MINIO_ROOT_USER: ${PLATYS_AWS_ACCESS_KEY:-minio}
       MINIO_ROOT_PASSWORD: ${PLATYS_AWS_SECRET_ACCESS_KEY:-mdpDemo2024!}
-      MINIO_REGION_NAME: us-east-1
-      MINIO_REGION: us-east-1
+      # remove region due to problems with RisingWave
+      #MINIO_REGION_NAME: us-east-1
+      #MINIO_REGION: us-east-1
       MINIO_DOMAIN: minio
       MINIO_SERVER_URL: http://${PUBLIC_IP}:9000
       MINIO_COMPRESSION_ENABLE: off
@@ -1344,7 +1357,7 @@ services:
       # these two env variables are also needed for the s3-credentials.properties file gen to work! 
       AWS_ACCESS_KEY: ${PLATYS_AWS_ACCESS_KEY:-minio}
       AWS_SECRET_ACCESS_KEY: ${PLATYS_AWS_SECRET_ACCESS_KEY:-mdpDemo2024!}
-      MC_HOST_minio-1: http://minio:mdpDemo2024!@minio-1:9000
+      MC_HOST_minio-1: http://${PLATYS_AWS_ACCESS_KEY:-minio}:${PLATYS_AWS_SECRET_ACCESS_KEY:-mdpDemo2024!}@minio-1:9000
     volumes:
       - ./data-transfer:/data-transfer
       - ./scripts/docker/wait-for-it.sh:/usr/src/app/wait-for-it.sh
@@ -1467,7 +1480,7 @@ services:
       - 28312:3000
     volumes:
       - ./data-transfer:/data-transfer
-    #  - ./data-transfer/docs:/docs
+      - ./markdown:/docs
       - ./custom-conf/markdown-madness/markdown-madness.yml:/docs/.madness.yml
     command: server
     restart: unless-stopped
