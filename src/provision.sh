@@ -21,6 +21,9 @@ mkdir -p $DATAPLATFORM_HOME/data-transfer/landing-area/admission
 echo "copy airflow pipelines"
 cp -rv ./airflow/*.py $DATAPLATFORM_HOME/scripts/airflow/dags
 
+echo "copy docker-compose.override.yml"
+cp -rv ./infra/docker/*.yml $DATAPLATFORM_HOME
+
 # at the moment platys is using directly the ../src folder
 #echo "deploy streamlit apps"
 #mkdir -p $DATAPLATFORM_HOME/scripts/streamlit/apps/csv-uploader
