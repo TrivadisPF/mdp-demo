@@ -1,0 +1,11 @@
+services:
+  owl-shop:
+    #image: quay.io/cloudhut/owl-shop:v1.2.0
+    image: quay.io/cloudhut/owl-shop:latest
+    environment:
+      - SHOP_KAFKA_BROKERS=kafka-1:19092
+      - SHOP_KAFKA_TOPICREPLICATIONFACTOR=1
+      - SHOP_TRAFFIC_INTERVAL_RATE=1
+      - SHOP_TRAFFIC_INTERVAL_DURATION=0.1s
+    depends_on:
+      - kafka-1
